@@ -90,15 +90,15 @@ pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
 pub type uint64_t = __uint64_t;
 pub type khronos_int32_t = int32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -107,21 +107,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -130,8 +130,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -140,8 +140,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -153,8 +153,8 @@ pub type EGLDisplay = *mut libc::c_void;
 pub type EGLConfig = *mut libc::c_void;
 pub type EGLContext = *mut libc::c_void;
 pub type EGLenum = libc::c_uint;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_dmabuf_attributes {
     pub width: int32_t,
     pub height: int32_t,
@@ -166,16 +166,16 @@ pub struct wlr_dmabuf_attributes {
     pub stride: [uint32_t; 4],
     pub fd: [libc::c_int; 4],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format {
     pub format: uint32_t,
     pub len: size_t,
     pub cap: size_t,
     pub modifiers: [uint64_t; 0],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format_set {
     pub len: size_t,
     pub cap: size_t,
@@ -185,8 +185,8 @@ pub struct wlr_drm_format_set {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_egl {
     pub platform: EGLenum,
     pub display: EGLDisplay,
@@ -197,8 +197,8 @@ pub struct wlr_egl {
     pub wl_display: *mut wl_display,
     pub dmabuf_formats: wlr_drm_format_set,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub bind_wayland_display_wl: bool,
     pub buffer_age_ext: bool,
@@ -209,19 +209,19 @@ pub struct C2RustUnnamed {
     pub swap_buffers_with_damage_ext: bool,
     pub swap_buffers_with_damage_khr: bool,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_renderer {
     pub impl_0: *const wlr_renderer_impl,
     pub events: C2RustUnnamed_0,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_renderer_impl {
     pub begin: Option<unsafe extern "C" fn(_: *mut wlr_renderer, _: uint32_t,
                                            _: uint32_t) -> ()>,
@@ -307,13 +307,13 @@ pub struct wlr_renderer_impl {
                                                      _: *mut wl_display)
                                     -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture {
     pub impl_0: *const wlr_texture_impl,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture_impl {
     pub get_size: Option<unsafe extern "C" fn(_: *mut wlr_texture,
                                               _: *mut libc::c_int,
@@ -390,8 +390,8 @@ pub const WL_SHM_FORMAT_RGB332: wl_shm_format = 943867730;
 pub const WL_SHM_FORMAT_C8: wl_shm_format = 538982467;
 pub const WL_SHM_FORMAT_XRGB8888: wl_shm_format = 1;
 pub const WL_SHM_FORMAT_ARGB8888: wl_shm_format = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_box {
     pub x: libc::c_int,
     pub y: libc::c_int,
@@ -414,8 +414,8 @@ pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
 /* the protocol interface */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_linux_dmabuf_v1 {
     pub global: *mut wl_global,
     pub renderer: *mut wlr_renderer,
@@ -423,8 +423,8 @@ pub struct wlr_linux_dmabuf_v1 {
     pub display_destroy: wl_listener,
     pub renderer_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub destroy: wl_signal,
 }

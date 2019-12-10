@@ -100,7 +100,7 @@ pub type PFNEGLUNBINDWAYLANDDISPLAYWL
                -> EGLBoolean>;
 pub type PFNEGLQUERYWAYLANDBUFFERWL
     =
-    Option<unsafe extern "C" fn(_: EGLDisplay, _: *mut wl_resource, _: EGLint,
+    Option<unsafe extern "C" fn(_: EGLDisplay, _: *mut crate::src::backend::backend::wl_resource, _: EGLint,
                                 _: *mut EGLint) -> EGLBoolean>;
 pub type GLenum = libc::c_uint;
 pub type GLuint = libc::c_uint;

@@ -13,19 +13,19 @@ extern "C" {
     fn wlr_list_finish(list: *mut wlr_list);
 }
 pub type size_t = libc::c_ulong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_list {
     pub capacity: size_t,
     pub length: size_t,
@@ -34,8 +34,8 @@ pub struct wlr_list {
 /* Note: these are circular dependencies */
 // Or 0 if not applicable to this device
 /* wlr_input_device.type determines which of these is valid */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet {
     pub impl_0: *mut wlr_tablet_impl,
     pub events: C2RustUnnamed,
@@ -43,16 +43,16 @@ pub struct wlr_tablet {
     pub paths: wlr_list,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub axis: wl_signal,
     pub proximity: wl_signal,
     pub tip: wl_signal,
     pub button: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet_impl {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_tablet) -> ()>,
 }

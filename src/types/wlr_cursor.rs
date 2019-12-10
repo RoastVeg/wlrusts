@@ -74,7 +74,7 @@ extern "C" {
                               x: libc::c_double, y: libc::c_double) -> bool;
     #[no_mangle]
     fn wlr_output_cursor_set_surface(cursor: *mut wlr_output_cursor,
-                                     surface: *mut wlr_surface,
+                                     surface: *mut crate::src::types::data_device::wlr_data_device::wlr_surface,
                                      hotspot_x: int32_t, hotspot_y: int32_t);
     #[no_mangle]
     fn wlr_output_cursor_set_image(cursor: *mut wlr_output_cursor,
@@ -105,15 +105,15 @@ pub type int32_t = __int32_t;
 pub type uint8_t = __uint8_t;
 pub type uint32_t = __uint32_t;
 pub type uint64_t = __uint64_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -122,21 +122,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -145,8 +145,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -155,8 +155,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -166,15 +166,15 @@ pub type wl_resource_destroy_func_t
 /*
  * 32 bit regions
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
 }
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
@@ -182,8 +182,8 @@ pub struct pixman_box32 {
     pub y2: int32_t,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
@@ -209,8 +209,8 @@ pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_box {
     pub x: libc::c_int,
     pub y: libc::c_int,
@@ -234,19 +234,19 @@ pub const WLR_INPUT_DEVICE_KEYBOARD: wlr_input_device_type = 0;
 pub type xkb_mod_index_t = uint32_t;
 pub type xkb_mod_mask_t = uint32_t;
 pub type xkb_led_index_t = uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_modifiers {
     pub depressed: xkb_mod_mask_t,
     pub latched: xkb_mod_mask_t,
     pub locked: xkb_mod_mask_t,
     pub group: xkb_mod_mask_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard {
-    pub impl_0: *const wlr_keyboard_impl,
-    pub group: *mut wlr_keyboard_group,
+    pub impl_0: *const crate::src::backend::headless::input_device::wlr_keyboard_impl,
+    pub group: *mut crate::src::types::wlr_keyboard_group::wlr_keyboard_group,
     pub keymap_string: *mut libc::c_char,
     pub keymap_size: size_t,
     pub keymap: *mut xkb_keymap,
@@ -260,8 +260,8 @@ pub struct wlr_keyboard {
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub key: wl_signal,
     pub modifiers: wl_signal,
@@ -269,21 +269,21 @@ pub struct C2RustUnnamed {
     pub repeat_info: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub rate: int32_t,
     pub delay: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_pointer {
-    pub impl_0: *const wlr_pointer_impl,
+    pub impl_0: *const crate::src::backend::headless::input_device::wlr_pointer_impl,
     pub events: C2RustUnnamed_1,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub motion: wl_signal,
     pub motion_absolute: wl_signal,
@@ -297,8 +297,8 @@ pub struct C2RustUnnamed_1 {
     pub pinch_update: wl_signal,
     pub pinch_end: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_motion {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -307,10 +307,10 @@ pub struct wlr_event_pointer_motion {
     pub unaccel_dx: libc::c_double,
     pub unaccel_dy: libc::c_double,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_input_device {
-    pub impl_0: *const wlr_input_device_impl,
+    pub impl_0: *const crate::src::backend::headless::backend::wlr_input_device_impl,
     pub type_0: wlr_input_device_type,
     pub vendor: libc::c_uint,
     pub product: libc::c_uint,
@@ -323,13 +323,13 @@ pub struct wlr_input_device {
     pub data: *mut libc::c_void,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_2 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union C2RustUnnamed_3 {
     pub _device: *mut libc::c_void,
     pub keyboard: *mut wlr_keyboard,
@@ -348,10 +348,10 @@ pub union C2RustUnnamed_3 {
  * with more than one mode. I don't own any such hardware so I cannot test it
  * and it is too complicated to make a meaningful implementation of blindly.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet_pad {
-    pub impl_0: *mut wlr_tablet_pad_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_tablet_pad_impl,
     pub events: C2RustUnnamed_4,
     pub button_count: size_t,
     pub ring_count: size_t,
@@ -364,15 +364,15 @@ pub struct wlr_tablet_pad {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_list {
     pub capacity: size_t,
     pub length: size_t,
     pub items: *mut *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_4 {
     pub button: wl_signal,
     pub ring: wl_signal,
@@ -396,17 +396,17 @@ pub struct C2RustUnnamed_4 {
 /* * A mouse tool with a lens */
 /* * A rotary device with positional and rotation data */
 // Capabilities
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet {
-    pub impl_0: *mut wlr_tablet_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_tablet_impl,
     pub events: C2RustUnnamed_5,
     pub name: *mut libc::c_char,
     pub paths: wlr_list,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_5 {
     pub axis: wl_signal,
     pub proximity: wl_signal,
@@ -417,15 +417,15 @@ pub struct C2RustUnnamed_5 {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_touch {
-    pub impl_0: *const wlr_touch_impl,
+    pub impl_0: *const crate::src::backend::headless::input_device::wlr_touch_impl,
     pub events: C2RustUnnamed_6,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_6 {
     pub down: wl_signal,
     pub up: wl_signal,
@@ -436,28 +436,28 @@ pub struct C2RustUnnamed_6 {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_switch {
-    pub impl_0: *mut wlr_switch_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_switch_impl,
     pub events: C2RustUnnamed_7,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_7 {
     pub toggle: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_motion_absolute {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
     pub x: libc::c_double,
     pub y: libc::c_double,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_button {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -472,8 +472,8 @@ pub const WLR_AXIS_SOURCE_WHEEL: wlr_axis_source = 0;
 pub type wlr_axis_orientation = libc::c_uint;
 pub const WLR_AXIS_ORIENTATION_HORIZONTAL: wlr_axis_orientation = 1;
 pub const WLR_AXIS_ORIENTATION_VERTICAL: wlr_axis_orientation = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_axis {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -482,15 +482,15 @@ pub struct wlr_event_pointer_axis {
     pub delta: libc::c_double,
     pub delta_discrete: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_swipe_begin {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
     pub fingers: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_swipe_update {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -498,22 +498,22 @@ pub struct wlr_event_pointer_swipe_update {
     pub dx: libc::c_double,
     pub dy: libc::c_double,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_swipe_end {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
     pub cancelled: bool,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_pinch_begin {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
     pub fingers: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_pinch_update {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -523,15 +523,15 @@ pub struct wlr_event_pointer_pinch_update {
     pub scale: libc::c_double,
     pub rotation: libc::c_double,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_pinch_end {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
     pub cancelled: bool,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_touch_down {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -539,15 +539,15 @@ pub struct wlr_event_touch_down {
     pub x: libc::c_double,
     pub y: libc::c_double,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_touch_up {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
     pub touch_id: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_touch_motion {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -555,8 +555,8 @@ pub struct wlr_event_touch_motion {
     pub x: libc::c_double,
     pub y: libc::c_double,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_touch_cancel {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -571,8 +571,8 @@ pub const WLR_TABLET_TOOL_TYPE_PENCIL: wlr_tablet_tool_type = 4;
 pub const WLR_TABLET_TOOL_TYPE_BRUSH: wlr_tablet_tool_type = 3;
 pub const WLR_TABLET_TOOL_TYPE_ERASER: wlr_tablet_tool_type = 2;
 pub const WLR_TABLET_TOOL_TYPE_PEN: wlr_tablet_tool_type = 1;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet_tool {
     pub type_0: wlr_tablet_tool_type,
     pub hardware_serial: uint64_t,
@@ -586,13 +586,13 @@ pub struct wlr_tablet_tool {
     pub events: C2RustUnnamed_8,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_8 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_tablet_tool_axis {
     pub device: *mut wlr_input_device,
     pub tool: *mut wlr_tablet_tool,
@@ -613,8 +613,8 @@ pub struct wlr_event_tablet_tool_axis {
 pub type wlr_tablet_tool_proximity_state = libc::c_uint;
 pub const WLR_TABLET_TOOL_PROXIMITY_IN: wlr_tablet_tool_proximity_state = 1;
 pub const WLR_TABLET_TOOL_PROXIMITY_OUT: wlr_tablet_tool_proximity_state = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_tablet_tool_proximity {
     pub device: *mut wlr_input_device,
     pub tool: *mut wlr_tablet_tool,
@@ -626,8 +626,8 @@ pub struct wlr_event_tablet_tool_proximity {
 pub type wlr_tablet_tool_tip_state = libc::c_uint;
 pub const WLR_TABLET_TOOL_TIP_DOWN: wlr_tablet_tool_tip_state = 1;
 pub const WLR_TABLET_TOOL_TIP_UP: wlr_tablet_tool_tip_state = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_tablet_tool_tip {
     pub device: *mut wlr_input_device,
     pub tool: *mut wlr_tablet_tool,
@@ -636,8 +636,8 @@ pub struct wlr_event_tablet_tool_tip {
     pub y: libc::c_double,
     pub state: wlr_tablet_tool_tip_state,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_tablet_tool_button {
     pub device: *mut wlr_input_device,
     pub tool: *mut wlr_tablet_tool,
@@ -652,17 +652,17 @@ pub struct wlr_event_tablet_tool_button {
 /* *
  * A client buffer.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
-    pub texture: *mut wlr_texture,
+    pub texture: *mut crate::src::backend::drm::atomic::wlr_texture,
     pub released: bool,
     pub n_refs: size_t,
     pub resource_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_mode {
     pub width: int32_t,
     pub height: int32_t,
@@ -670,8 +670,8 @@ pub struct wlr_output_mode {
     pub preferred: bool,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_cursor {
     pub output: *mut wlr_output,
     pub x: libc::c_double,
@@ -683,22 +683,22 @@ pub struct wlr_output_cursor {
     pub hotspot_x: int32_t,
     pub hotspot_y: int32_t,
     pub link: wl_list,
-    pub texture: *mut wlr_texture,
-    pub surface: *mut wlr_surface,
+    pub texture: *mut crate::src::backend::drm::atomic::wlr_texture,
+    pub surface: *mut crate::src::types::data_device::wlr_data_device::wlr_surface,
     pub surface_commit: wl_listener,
     pub surface_destroy: wl_listener,
     pub events: C2RustUnnamed_9,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_9 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output {
-    pub impl_0: *const wlr_output_impl,
-    pub backend: *mut wlr_backend,
+    pub impl_0: *const crate::src::backend::drm::backend::wlr_output_impl,
+    pub backend: *mut crate::src::backend::backend::wlr_backend,
     pub display: *mut wl_display,
     pub global: *mut wl_global,
     pub resources: wl_list,
@@ -733,8 +733,8 @@ pub struct wlr_output {
     pub display_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_10 {
     pub frame: wl_signal,
     pub needs_frame: wl_signal,
@@ -747,8 +747,8 @@ pub struct C2RustUnnamed_10 {
     pub transform: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_state {
     pub committed: uint32_t,
     pub damage: pixman_region32_t,
@@ -758,38 +758,38 @@ pub struct wlr_output_state {
 pub type wlr_output_state_buffer_type = libc::c_uint;
 pub const WLR_OUTPUT_STATE_BUFFER_SCANOUT: wlr_output_state_buffer_type = 1;
 pub const WLR_OUTPUT_STATE_BUFFER_RENDER: wlr_output_state_buffer_type = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_layout {
     pub outputs: wl_list,
-    pub state: *mut wlr_output_layout_state,
+    pub state: *mut crate::src::types::wlr_output_layout::wlr_output_layout_state,
     pub events: C2RustUnnamed_11,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_11 {
     pub add: wl_signal,
     pub change: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_layout_output {
     pub output: *mut wlr_output,
     pub x: libc::c_int,
     pub y: libc::c_int,
     pub link: wl_list,
-    pub state: *mut wlr_output_layout_output_state,
+    pub state: *mut crate::src::types::wlr_output_layout::wlr_output_layout_output_state,
     pub events: C2RustUnnamed_12,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_12 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_cursor_state {
     pub cursor: *mut wlr_cursor,
     pub devices: wl_list,
@@ -801,8 +801,8 @@ pub struct wlr_cursor_state {
     pub layout_change: wl_listener,
     pub layout_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_cursor {
     pub state: *mut wlr_cursor_state,
     pub x: libc::c_double,
@@ -810,8 +810,8 @@ pub struct wlr_cursor {
     pub events: C2RustUnnamed_13,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_13 {
     pub motion: wl_signal,
     pub motion_absolute: wl_signal,
@@ -833,8 +833,8 @@ pub struct C2RustUnnamed_13 {
     pub tablet_tool_tip: wl_signal,
     pub tablet_tool_button: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_cursor_device {
     pub cursor: *mut wlr_cursor,
     pub device: *mut wlr_input_device,
@@ -862,8 +862,8 @@ pub struct wlr_cursor_device {
     pub tablet_tool_button: wl_listener,
     pub destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_cursor_output_cursor {
     pub cursor: *mut wlr_cursor,
     pub output_cursor: *mut wlr_output_cursor,
@@ -1299,7 +1299,7 @@ pub unsafe extern "C" fn wlr_cursor_set_image(mut cur: *mut wlr_cursor,
 }
 #[no_mangle]
 pub unsafe extern "C" fn wlr_cursor_set_surface(mut cur: *mut wlr_cursor,
-                                                mut surface: *mut wlr_surface,
+                                                mut surface: *mut crate::src::types::data_device::wlr_data_device::wlr_surface,
                                                 mut hotspot_x: int32_t,
                                                 mut hotspot_y: int32_t) {
     let mut output_cursor: *mut wlr_cursor_output_cursor =

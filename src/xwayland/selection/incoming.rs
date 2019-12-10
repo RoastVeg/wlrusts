@@ -164,8 +164,8 @@ pub type __time_t = libc::c_long;
 pub type __ssize_t = libc::c_long;
 pub type __syscall_slong_t = libc::c_long;
 pub type pid_t = __pid_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct timespec {
     pub tv_sec: __time_t,
     pub tv_nsec: __syscall_slong_t,
@@ -178,15 +178,15 @@ pub type int32_t = __int32_t;
 pub type uint8_t = __uint8_t;
 pub type uint16_t = __uint16_t;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -195,21 +195,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_array {
     pub size: size_t,
     pub alloc: size_t,
@@ -224,8 +224,8 @@ pub type wl_event_loop_fd_func_t
     =
     Option<unsafe extern "C" fn(_: libc::c_int, _: uint32_t,
                                 _: *mut libc::c_void) -> libc::c_int>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -234,8 +234,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -244,8 +244,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -262,19 +262,19 @@ pub const WLR_BUTTON_RELEASED: wlr_button_state = 0;
 pub type xkb_mod_index_t = uint32_t;
 pub type xkb_mod_mask_t = uint32_t;
 pub type xkb_led_index_t = uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_modifiers {
     pub depressed: xkb_mod_mask_t,
     pub latched: xkb_mod_mask_t,
     pub locked: xkb_mod_mask_t,
     pub group: xkb_mod_mask_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard {
-    pub impl_0: *const wlr_keyboard_impl,
-    pub group: *mut wlr_keyboard_group,
+    pub impl_0: *const crate::src::backend::headless::input_device::wlr_keyboard_impl,
+    pub group: *mut crate::src::types::wlr_keyboard_group::wlr_keyboard_group,
     pub keymap_string: *mut libc::c_char,
     pub keymap_size: size_t,
     pub keymap: *mut xkb_keymap,
@@ -288,8 +288,8 @@ pub struct wlr_keyboard {
     pub events: C2RustUnnamed_0,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub key: wl_signal,
     pub modifiers: wl_signal,
@@ -297,8 +297,8 @@ pub struct C2RustUnnamed_0 {
     pub repeat_info: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub rate: int32_t,
     pub delay: int32_t,
@@ -311,15 +311,15 @@ pub const WLR_AXIS_SOURCE_WHEEL: wlr_axis_source = 0;
 pub type wlr_axis_orientation = libc::c_uint;
 pub const WLR_AXIS_ORIENTATION_HORIZONTAL: wlr_axis_orientation = 1;
 pub const WLR_AXIS_ORIENTATION_VERTICAL: wlr_axis_orientation = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
 }
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
@@ -327,8 +327,8 @@ pub struct pixman_box32 {
     pub y2: int32_t,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
@@ -356,8 +356,8 @@ pub const WL_OUTPUT_TRANSFORM_270: wl_output_transform = 3;
 pub const WL_OUTPUT_TRANSFORM_180: wl_output_transform = 2;
 pub const WL_OUTPUT_TRANSFORM_90: wl_output_transform = 1;
 pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
     pub texture: *mut wlr_texture,
@@ -365,19 +365,19 @@ pub struct wlr_buffer {
     pub n_refs: size_t,
     pub resource_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture {
-    pub impl_0: *const wlr_texture_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_texture_impl,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_renderer {
-    pub impl_0: *const wlr_renderer_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_renderer_impl,
     pub events: C2RustUnnamed_2,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_2 {
     pub destroy: wl_signal,
 }
@@ -388,8 +388,8 @@ pub struct C2RustUnnamed_2 {
 // mHz
 // only when using a software cursor without a surface
 // only when using a cursor surface
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface {
     pub resource: *mut wl_resource,
     pub renderer: *mut wlr_renderer,
@@ -410,22 +410,22 @@ pub struct wlr_surface {
     pub renderer_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_3 {
     pub commit: wl_signal,
     pub new_subsurface: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface_role {
     pub name: *const libc::c_char,
     pub commit: Option<unsafe extern "C" fn(_: *mut wlr_surface) -> ()>,
     pub precommit: Option<unsafe extern "C" fn(_: *mut wlr_surface) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface_state {
     pub committed: uint32_t,
     pub buffer_resource: *mut wl_resource,
@@ -444,21 +444,21 @@ pub struct wlr_surface_state {
     pub buffer_height: libc::c_int,
     pub buffer_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_serial_range {
     pub min_incl: uint32_t,
     pub max_incl: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_serial_ringset {
     pub data: [wlr_serial_range; 128],
     pub end: libc::c_int,
     pub count: libc::c_int,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_client {
     pub client: *mut wl_client,
     pub seat: *mut wlr_seat,
@@ -471,13 +471,13 @@ pub struct wlr_seat_client {
     pub events: C2RustUnnamed_4,
     pub serials: wlr_serial_ringset,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_4 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat {
     pub global: *mut wl_global,
     pub display: *mut wl_display,
@@ -504,8 +504,8 @@ pub struct wlr_seat {
     pub events: C2RustUnnamed_5,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_5 {
     pub pointer_grab_begin: wl_signal,
     pub pointer_grab_end: wl_signal,
@@ -522,8 +522,8 @@ pub struct C2RustUnnamed_5 {
     pub start_drag: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_touch_state {
     pub seat: *mut wlr_seat,
     pub touch_points: wl_list,
@@ -532,15 +532,15 @@ pub struct wlr_seat_touch_state {
     pub grab: *mut wlr_seat_touch_grab,
     pub default_grab: *mut wlr_seat_touch_grab,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_touch_grab {
     pub interface: *const wlr_touch_grab_interface,
     pub seat: *mut wlr_seat,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_touch_grab_interface {
     pub down: Option<unsafe extern "C" fn(_: *mut wlr_seat_touch_grab,
                                           _: uint32_t,
@@ -558,8 +558,8 @@ pub struct wlr_touch_grab_interface {
     pub cancel: Option<unsafe extern "C" fn(_: *mut wlr_seat_touch_grab)
                            -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_touch_point {
     pub touch_id: int32_t,
     pub surface: *mut wlr_surface,
@@ -574,13 +574,13 @@ pub struct wlr_touch_point {
     pub events: C2RustUnnamed_6,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_6 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_keyboard_state {
     pub seat: *mut wlr_seat,
     pub keyboard: *mut wlr_keyboard,
@@ -594,20 +594,20 @@ pub struct wlr_seat_keyboard_state {
     pub default_grab: *mut wlr_seat_keyboard_grab,
     pub events: C2RustUnnamed_7,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_7 {
     pub focus_change: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_keyboard_grab {
     pub interface: *const wlr_keyboard_grab_interface,
     pub seat: *mut wlr_seat,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_grab_interface {
     pub enter: Option<unsafe extern "C" fn(_: *mut wlr_seat_keyboard_grab,
                                            _: *mut wlr_surface,
@@ -623,8 +623,8 @@ pub struct wlr_keyboard_grab_interface {
     pub cancel: Option<unsafe extern "C" fn(_: *mut wlr_seat_keyboard_grab)
                            -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_pointer_state {
     pub seat: *mut wlr_seat,
     pub focused_client: *mut wlr_seat_client,
@@ -641,20 +641,20 @@ pub struct wlr_seat_pointer_state {
     pub surface_destroy: wl_listener,
     pub events: C2RustUnnamed_8,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_8 {
     pub focus_change: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_pointer_grab {
     pub interface: *const wlr_pointer_grab_interface,
     pub seat: *mut wlr_seat,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_pointer_grab_interface {
     pub enter: Option<unsafe extern "C" fn(_: *mut wlr_seat_pointer_grab,
                                            _: *mut wlr_surface,
@@ -676,8 +676,8 @@ pub struct wlr_pointer_grab_interface {
     pub cancel: Option<unsafe extern "C" fn(_: *mut wlr_seat_pointer_grab)
                            -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_data_source {
     pub impl_0: *const wlr_data_source_impl,
     pub mime_types: wl_array,
@@ -687,13 +687,13 @@ pub struct wlr_data_source {
     pub compositor_action: uint32_t,
     pub events: C2RustUnnamed_9,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_9 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_data_source_impl {
     pub send: Option<unsafe extern "C" fn(_: *mut wlr_data_source,
                                           _: *const libc::c_char, _: int32_t)
@@ -742,8 +742,8 @@ pub struct wlr_data_source_impl {
 // wlr_touch_point::link
 // wlr_data_offer::link
 // `drag` goes away before `drag_source`, when the implicit grab ends
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drag {
     pub grab_type: wlr_drag_grab_type,
     pub keyboard_grab: wlr_seat_keyboard_grab,
@@ -767,16 +767,16 @@ pub struct wlr_drag {
     pub icon_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_10 {
     pub focus: wl_signal,
     pub motion: wl_signal,
     pub drop: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drag_icon {
     pub drag: *mut wlr_drag,
     pub surface: *mut wlr_surface,
@@ -785,8 +785,8 @@ pub struct wlr_drag_icon {
     pub surface_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_11 {
     pub map: wl_signal,
     pub unmap: wl_signal,
@@ -796,21 +796,21 @@ pub type wlr_drag_grab_type = libc::c_uint;
 pub const WLR_DRAG_GRAB_KEYBOARD_TOUCH: wlr_drag_grab_type = 2;
 pub const WLR_DRAG_GRAB_KEYBOARD_POINTER: wlr_drag_grab_type = 1;
 pub const WLR_DRAG_GRAB_KEYBOARD: wlr_drag_grab_type = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_primary_selection_source {
     pub impl_0: *const wlr_primary_selection_source_impl,
     pub mime_types: wl_array,
     pub events: C2RustUnnamed_12,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_12 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_primary_selection_source_impl {
     pub send: Option<unsafe extern "C" fn(_:
                                               *mut wlr_primary_selection_source,
@@ -841,8 +841,8 @@ pub const WLR_DEBUG: wlr_log_importance = 3;
 pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_generic_event_t {
     pub response_type: uint8_t,
     pub pad0: uint8_t,
@@ -850,8 +850,8 @@ pub struct xcb_generic_event_t {
     pub pad: [uint32_t; 7],
     pub full_sequence: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_generic_error_t {
     pub response_type: uint8_t,
     pub error_code: uint8_t,
@@ -863,8 +863,8 @@ pub struct xcb_generic_error_t {
     pub pad: [uint32_t; 5],
     pub full_sequence: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_void_cookie_t {
     pub sequence: libc::c_uint,
 }
@@ -875,8 +875,8 @@ pub type xcb_colormap_t = uint32_t;
 pub type xcb_atom_t = uint32_t;
 pub type xcb_visualid_t = uint32_t;
 pub type xcb_timestamp_t = uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_screen_t {
     pub root: xcb_window_t,
     pub default_colormap: xcb_colormap_t,
@@ -970,8 +970,8 @@ pub const XCB_ATOM_SECONDARY: xcb_atom_enum_t = 2;
 pub const XCB_ATOM_PRIMARY: xcb_atom_enum_t = 1;
 pub const XCB_ATOM_ANY: xcb_atom_enum_t = 0;
 pub const XCB_ATOM_NONE: xcb_atom_enum_t = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_selection_request_event_t {
     pub response_type: uint8_t,
     pub pad0: uint8_t,
@@ -983,8 +983,8 @@ pub struct xcb_selection_request_event_t {
     pub target: xcb_atom_t,
     pub property: xcb_atom_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_selection_notify_event_t {
     pub response_type: uint8_t,
     pub pad0: uint8_t,
@@ -995,13 +995,13 @@ pub struct xcb_selection_notify_event_t {
     pub target: xcb_atom_t,
     pub property: xcb_atom_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_get_atom_name_cookie_t {
     pub sequence: libc::c_uint,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_get_atom_name_reply_t {
     pub response_type: uint8_t,
     pub pad0: uint8_t,
@@ -1012,13 +1012,13 @@ pub struct xcb_get_atom_name_reply_t {
 }
 pub type xcb_get_property_type_t = libc::c_uint;
 pub const XCB_GET_PROPERTY_TYPE_ANY: xcb_get_property_type_t = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_get_property_cookie_t {
     pub sequence: libc::c_uint,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_get_property_reply_t {
     pub response_type: uint8_t,
     pub format: uint8_t,
@@ -1029,8 +1029,8 @@ pub struct xcb_get_property_reply_t {
     pub value_len: uint32_t,
     pub pad0: [uint8_t; 12],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_query_extension_reply_t {
     pub response_type: uint8_t,
     pub pad0: uint8_t,
@@ -1042,8 +1042,8 @@ pub struct xcb_query_extension_reply_t {
     pub first_error: uint8_t,
 }
 pub type xcb_render_pictformat_t = uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_xfixes_selection_notify_event_t {
     pub response_type: uint8_t,
     pub subtype: uint8_t,
@@ -1055,8 +1055,8 @@ pub struct xcb_xfixes_selection_notify_event_t {
     pub selection_timestamp: xcb_timestamp_t,
     pub pad0: [uint8_t; 8],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xwm_selection {
     pub xwm: *mut wlr_xwm,
     pub atom: xcb_atom_t,
@@ -1066,8 +1066,8 @@ pub struct wlr_xwm_selection {
     pub incoming: wlr_xwm_selection_transfer,
     pub outgoing: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xwm_selection_transfer {
     pub selection: *mut wlr_xwm_selection,
     pub incr: bool,
@@ -1081,8 +1081,8 @@ pub struct wlr_xwm_selection_transfer {
     pub property_start: libc::c_int,
     pub property_reply: *mut xcb_get_property_reply_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xwm {
     pub xwayland: *mut wlr_xwayland,
     pub event_source: *mut wl_event_source,
@@ -1128,8 +1128,8 @@ pub struct wlr_xwm {
  * `unmap` event is guaranteed to be emitted before the `destroy` event if the
  * view is destroyed when mapped.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xwayland_surface {
     pub window_id: xcb_window_t,
     pub xwm: *mut wlr_xwm,
@@ -1173,8 +1173,8 @@ pub struct wlr_xwayland_surface {
     pub surface_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_13 {
     pub destroy: wl_signal,
     pub request_configure: wl_signal,
@@ -1196,8 +1196,8 @@ pub struct C2RustUnnamed_13 {
     pub set_override_redirect: wl_signal,
     pub ping_timeout: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xwayland_surface_size_hints {
     pub flags: uint32_t,
     pub x: int32_t,
@@ -1218,8 +1218,8 @@ pub struct wlr_xwayland_surface_size_hints {
     pub max_aspect_den: int32_t,
     pub win_gravity: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xwayland_surface_hints {
     pub flags: uint32_t,
     pub input: uint32_t,
@@ -1235,14 +1235,14 @@ pub struct wlr_xwayland_surface_hints {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xwayland {
     pub pid: pid_t,
     pub client: *mut wl_client,
     pub sigusr1_source: *mut wl_event_source,
     pub xwm: *mut wlr_xwm,
-    pub cursor: *mut wlr_xwayland_cursor,
+    pub cursor: *mut crate::src::xwayland::xwayland::wlr_xwayland_cursor,
     pub wm_fd: [libc::c_int; 2],
     pub wl_fd: [libc::c_int; 2],
     pub server_start: time_t,
@@ -1264,14 +1264,14 @@ pub struct wlr_xwayland {
     pub seat_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_14 {
     pub ready: wl_signal,
     pub new_surface: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_compositor {
     pub global: *mut wl_global,
     pub renderer: *mut wlr_renderer,
@@ -1279,8 +1279,8 @@ pub struct wlr_compositor {
     pub display_destroy: wl_listener,
     pub events: C2RustUnnamed_15,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_15 {
     pub new_surface: wl_signal,
     pub destroy: wl_signal,
@@ -1289,20 +1289,20 @@ pub struct C2RustUnnamed_15 {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_subcompositor {
     pub global: *mut wl_global,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct x11_data_source {
     pub base: wlr_data_source,
     pub selection: *mut wlr_xwm_selection,
     pub mime_types_atoms: wl_array,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct x11_primary_selection_source {
     pub base: wlr_primary_selection_source,
     pub selection: *mut wlr_xwm_selection,
@@ -1621,7 +1621,8 @@ unsafe extern "C" fn data_source_destroy(mut wlr_source:
     free(source as *mut libc::c_void);
 }
 static mut data_source_impl: wlr_data_source_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_data_source_impl{send:
@@ -1644,7 +1645,7 @@ static mut data_source_impl: wlr_data_source_impl =
                                      dnd_action: None,};
             init
         }
-    };
+};
 #[no_mangle]
 pub unsafe extern "C" fn primary_selection_source_is_xwayland(mut wlr_source:
                                                                   *mut wlr_primary_selection_source)
@@ -1672,7 +1673,8 @@ unsafe extern "C" fn primary_selection_source_destroy(mut wlr_source:
     free(source as *mut libc::c_void);
 }
 static mut primary_selection_source_impl: wlr_primary_selection_source_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_primary_selection_source_impl{send:
@@ -1693,7 +1695,7 @@ static mut primary_selection_source_impl: wlr_primary_selection_source_impl =
                                                                    -> ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn source_get_targets(mut selection: *mut wlr_xwm_selection,
                                         mut mime_types: *mut wl_array,
                                         mut mime_types_atoms: *mut wl_array)

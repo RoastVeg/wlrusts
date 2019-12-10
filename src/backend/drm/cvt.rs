@@ -8,8 +8,8 @@ pub type __uint16_t = libc::c_ushort;
 pub type __uint32_t = libc::c_uint;
 pub type uint16_t = __uint16_t;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModeModeInfo {
     pub clock: uint32_t,
     pub hdisplay: uint16_t,

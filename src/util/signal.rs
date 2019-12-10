@@ -5,14 +5,14 @@ extern "C" {
     #[no_mangle]
     fn wl_list_remove(elm: *mut wl_list);
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -21,8 +21,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }

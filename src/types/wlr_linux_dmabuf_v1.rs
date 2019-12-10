@@ -300,15 +300,15 @@ pub type off_t = __off64_t;
 pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
 pub type uint64_t = __uint64_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -317,21 +317,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -344,8 +344,8 @@ pub type wl_global_bind_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_client, _: *mut libc::c_void,
                                 _: uint32_t, _: uint32_t) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -354,37 +354,37 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
 pub type wl_resource_destroy_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_resource) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format {
     pub format: uint32_t,
     pub len: size_t,
     pub cap: size_t,
     pub modifiers: [uint64_t; 0],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format_set {
     pub len: size_t,
     pub cap: size_t,
     pub formats: *mut *mut wlr_drm_format,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_buffer_interface {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_dmabuf_attributes {
     pub width: int32_t,
     pub height: int32_t,
@@ -396,28 +396,28 @@ pub struct wlr_dmabuf_attributes {
     pub stride: [uint32_t; 4],
     pub fd: [libc::c_int; 4],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_renderer {
-    pub impl_0: *const wlr_renderer_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_renderer_impl,
     pub events: C2RustUnnamed,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture {
-    pub impl_0: *const wlr_texture_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_texture_impl,
 }
 /*
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_dmabuf_v1_buffer {
     pub renderer: *mut wlr_renderer,
     pub buffer_resource: *mut wl_resource,
@@ -430,8 +430,8 @@ pub struct wlr_dmabuf_v1_buffer {
  * @ingroup iface_zwp_linux_buffer_params_v1
  * @struct zwp_linux_buffer_params_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwp_linux_buffer_params_v1_interface {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource) -> ()>,
@@ -457,8 +457,8 @@ pub const ZWP_LINUX_BUFFER_PARAMS_V1_ERROR_INVALID_WL_BUFFER:
           zwp_linux_buffer_params_v1_error =
     7;
 /* the protocol interface */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_linux_dmabuf_v1 {
     pub global: *mut wl_global,
     pub renderer: *mut wlr_renderer,
@@ -466,8 +466,8 @@ pub struct wlr_linux_dmabuf_v1 {
     pub display_destroy: wl_listener,
     pub renderer_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub destroy: wl_signal,
 }
@@ -544,8 +544,8 @@ pub const WLR_SILENT: wlr_log_importance = 0;
  * @ingroup iface_zwp_linux_dmabuf_v1
  * @struct zwp_linux_dmabuf_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwp_linux_dmabuf_v1_interface {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource) -> ()>,
@@ -660,7 +660,8 @@ unsafe extern "C" fn buffer_handle_destroy(mut client: *mut wl_client,
     wl_resource_destroy(resource);
 }
 static mut buffer_impl: wl_buffer_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wl_buffer_interface{destroy:
@@ -672,7 +673,7 @@ static mut buffer_impl: wl_buffer_interface =
                                                      -> ()),};
             init
         }
-    };
+};
 /* *
  * Returns true if the given resource was created via the linux-dmabuf
  * buffer protocol, false otherwise
@@ -1091,7 +1092,8 @@ unsafe extern "C" fn params_create_immed(mut client: *mut wl_client,
                          format, flags);
 }
 static mut linux_buffer_params_impl: zwp_linux_buffer_params_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwp_linux_buffer_params_v1_interface{destroy:
@@ -1157,7 +1159,7 @@ static mut linux_buffer_params_impl: zwp_linux_buffer_params_v1_interface =
                                                                           ()),};
             init
         }
-    };
+};
 /* *
  * Returns the wlr_dmabuf_buffer if the given resource was created
  * via the linux-dmabuf params protocol
@@ -1268,7 +1270,8 @@ unsafe extern "C" fn linux_dmabuf_destroy(mut client: *mut wl_client,
     wl_resource_destroy(resource);
 }
 static mut linux_dmabuf_impl: zwp_linux_dmabuf_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwp_linux_dmabuf_v1_interface{destroy:
@@ -1290,7 +1293,7 @@ static mut linux_dmabuf_impl: zwp_linux_dmabuf_v1_interface =
                                                                -> ()),};
             init
         }
-    };
+};
 /* *
  * Returns the wlr_linux_dmabuf if the given resource was created
  * via the linux_dmabuf protocol

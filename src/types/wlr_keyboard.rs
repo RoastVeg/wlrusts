@@ -89,14 +89,14 @@ pub type __uint32_t = libc::c_uint;
 pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
 pub type size_t = libc::c_ulong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -120,18 +120,18 @@ pub const XKB_STATE_MODS_EFFECTIVE: xkb_state_component = 8;
 pub const XKB_STATE_MODS_LOCKED: xkb_state_component = 4;
 pub const XKB_STATE_MODS_LATCHED: xkb_state_component = 2;
 pub const XKB_STATE_MODS_DEPRESSED: xkb_state_component = 1;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_impl {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_keyboard) -> ()>,
     pub led_update: Option<unsafe extern "C" fn(_: *mut wlr_keyboard,
                                                 _: uint32_t) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard {
     pub impl_0: *const wlr_keyboard_impl,
-    pub group: *mut wlr_keyboard_group,
+    pub group: *mut crate::src::types::wlr_keyboard_group::wlr_keyboard_group,
     pub keymap_string: *mut libc::c_char,
     pub keymap_size: size_t,
     pub keymap: *mut xkb_keymap,
@@ -145,8 +145,8 @@ pub struct wlr_keyboard {
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub key: wl_signal,
     pub modifiers: wl_signal,
@@ -154,14 +154,14 @@ pub struct C2RustUnnamed {
     pub repeat_info: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub rate: int32_t,
     pub delay: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_modifiers {
     pub depressed: xkb_mod_mask_t,
     pub latched: xkb_mod_mask_t,
@@ -171,8 +171,8 @@ pub struct wlr_keyboard_modifiers {
 pub type wlr_key_state = libc::c_uint;
 pub const WLR_KEY_PRESSED: wlr_key_state = 1;
 pub const WLR_KEY_RELEASED: wlr_key_state = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_keyboard_key {
     pub time_msec: uint32_t,
     pub keycode: uint32_t,

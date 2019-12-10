@@ -234,15 +234,15 @@ pub type __syscall_slong_t = libc::c_long;
 pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
 pub type time_t = __time_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -251,21 +251,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -278,8 +278,8 @@ pub type wl_global_bind_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_client, _: *mut libc::c_void,
                                 _: uint32_t, _: uint32_t) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -288,8 +288,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -372,15 +372,15 @@ pub const WL_OUTPUT_TRANSFORM_180: wl_output_transform = 2;
 pub const WL_OUTPUT_TRANSFORM_90: wl_output_transform = 1;
 pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
 pub type pixman_bool_t = libc::c_int;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
 }
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
@@ -388,45 +388,45 @@ pub struct pixman_box32 {
     pub y2: int32_t,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
 }
 pub type pixman_region32_t = pixman_region32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_renderer {
-    pub impl_0: *const wlr_renderer_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_renderer_impl,
     pub events: C2RustUnnamed,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture {
-    pub impl_0: *const wlr_texture_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_texture_impl,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_box {
     pub x: libc::c_int,
     pub y: libc::c_int,
     pub width: libc::c_int,
     pub height: libc::c_int,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct timespec {
     pub tv_sec: __time_t,
     pub tv_nsec: __syscall_slong_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
     pub texture: *mut wlr_texture,
@@ -438,8 +438,8 @@ pub struct wlr_buffer {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_mode {
     pub width: int32_t,
     pub height: int32_t,
@@ -447,8 +447,8 @@ pub struct wlr_output_mode {
     pub preferred: bool,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_cursor {
     pub output: *mut wlr_output,
     pub x: libc::c_double,
@@ -461,13 +461,13 @@ pub struct wlr_output_cursor {
     pub hotspot_y: int32_t,
     pub link: wl_list,
     pub texture: *mut wlr_texture,
-    pub surface: *mut wlr_surface,
+    pub surface: *mut crate::src::types::data_device::wlr_data_device::wlr_surface,
     pub surface_commit: wl_listener,
     pub surface_destroy: wl_listener,
     pub events: C2RustUnnamed_0,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub destroy: wl_signal,
 }
@@ -482,10 +482,10 @@ pub struct C2RustUnnamed_0 {
  * render and call `wlr_output_commit`. No rendering should happen outside a
  * `frame` event handler or before `wlr_output_attach_render`.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output {
-    pub impl_0: *const wlr_output_impl,
+    pub impl_0: *const crate::src::backend::drm::backend::wlr_output_impl,
     pub backend: *mut wlr_backend,
     pub display: *mut wl_display,
     pub global: *mut wl_global,
@@ -521,8 +521,8 @@ pub struct wlr_output {
     pub display_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub frame: wl_signal,
     pub needs_frame: wl_signal,
@@ -538,8 +538,8 @@ pub struct C2RustUnnamed_1 {
 /* *
  * Holds the double-buffered output state.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_state {
     pub committed: uint32_t,
     pub damage: pixman_region32_t,
@@ -550,14 +550,14 @@ pub struct wlr_output_state {
 pub type wlr_output_state_buffer_type = libc::c_uint;
 pub const WLR_OUTPUT_STATE_BUFFER_SCANOUT: wlr_output_state_buffer_type = 1;
 pub const WLR_OUTPUT_STATE_BUFFER_RENDER: wlr_output_state_buffer_type = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_backend {
-    pub impl_0: *const wlr_backend_impl,
+    pub impl_0: *const crate::src::backend::backend::wlr_backend_impl,
     pub events: C2RustUnnamed_2,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_2 {
     pub destroy: wl_signal,
     pub new_input: wl_signal,
@@ -566,8 +566,8 @@ pub struct C2RustUnnamed_2 {
 pub type wlr_output_state_field = libc::c_uint;
 pub const WLR_OUTPUT_STATE_DAMAGE: wlr_output_state_field = 2;
 pub const WLR_OUTPUT_STATE_BUFFER: wlr_output_state_field = 1;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_event_precommit {
     pub output: *mut wlr_output,
     pub when: *mut timespec,
@@ -576,8 +576,8 @@ pub struct wlr_output_event_precommit {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_screencopy_manager_v1 {
     pub global: *mut wl_global,
     pub frames: wl_list,
@@ -585,20 +585,20 @@ pub struct wlr_screencopy_manager_v1 {
     pub events: C2RustUnnamed_3,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_3 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_screencopy_v1_client {
     pub ref_0: libc::c_int,
     pub manager: *mut wlr_screencopy_manager_v1,
     pub damages: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_screencopy_frame_v1 {
     pub resource: *mut wl_resource,
     pub client: *mut wlr_screencopy_v1_client,
@@ -617,8 +617,8 @@ pub struct wlr_screencopy_frame_v1 {
     pub output_enable: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct screencopy_damage {
     pub link: wl_list,
     pub output: *mut wlr_output,
@@ -631,8 +631,8 @@ pub struct screencopy_damage {
  * @ingroup iface_zwlr_screencopy_manager_v1
  * @struct zwlr_screencopy_manager_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwlr_screencopy_manager_v1_interface {
     pub capture_output: Option<unsafe extern "C" fn(_: *mut wl_client,
                                                     _: *mut wl_resource,
@@ -664,8 +664,8 @@ pub const WLR_SILENT: wlr_log_importance = 0;
  * @ingroup iface_zwlr_screencopy_frame_v1
  * @struct zwlr_screencopy_frame_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwlr_screencopy_frame_v1_interface {
     pub copy: Option<unsafe extern "C" fn(_: *mut wl_client,
                                           _: *mut wl_resource,
@@ -1204,7 +1204,8 @@ unsafe extern "C" fn frame_handle_destroy(mut wl_client: *mut wl_client,
     wl_resource_destroy(frame_resource);
 }
 static mut frame_impl: zwlr_screencopy_frame_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwlr_screencopy_frame_v1_interface{copy:
@@ -1237,7 +1238,7 @@ static mut frame_impl: zwlr_screencopy_frame_v1_interface =
                                                                     -> ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn frame_handle_resource_destroy(mut frame_resource:
                                                        *mut wl_resource) {
     let mut frame: *mut wlr_screencopy_frame_v1 =
@@ -1414,7 +1415,8 @@ unsafe extern "C" fn manager_handle_destroy(mut wl_client: *mut wl_client,
     wl_resource_destroy(manager_resource);
 }
 static mut manager_impl: zwlr_screencopy_manager_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwlr_screencopy_manager_v1_interface{capture_output:
@@ -1464,7 +1466,7 @@ static mut manager_impl: zwlr_screencopy_manager_v1_interface =
                                                                           ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn manager_handle_resource_destroy(mut resource:
                                                          *mut wl_resource) {
     let mut client: *mut wlr_screencopy_v1_client =

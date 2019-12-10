@@ -163,14 +163,14 @@ pub type __blksize_t = libc::c_long;
 pub type __blkcnt_t = libc::c_long;
 pub type __syscall_slong_t = libc::c_long;
 pub type pid_t = __pid_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct timespec {
     pub tv_sec: __time_t,
     pub tv_nsec: __syscall_slong_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct stat {
     pub st_dev: __dev_t,
     pub st_ino: __ino_t,
@@ -191,8 +191,8 @@ pub struct stat {
 pub type dev_t = __dev_t;
 pub type uid_t = __uid_t;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
@@ -206,8 +206,8 @@ pub type wl_event_loop_fd_func_t
     =
     Option<unsafe extern "C" fn(_: libc::c_int, _: uint32_t,
                                 _: *mut libc::c_void) -> libc::c_int>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -216,13 +216,13 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct session_impl {
     pub create: Option<unsafe extern "C" fn(_: *mut wl_display)
                            -> *mut wlr_session>,
@@ -235,8 +235,8 @@ pub struct session_impl {
     pub change_vt: Option<unsafe extern "C" fn(_: *mut wlr_session,
                                                _: libc::c_uint) -> bool>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_session {
     pub impl_0: *const session_impl,
     pub session_signal: wl_signal,
@@ -250,13 +250,13 @@ pub struct wlr_session {
     pub display_destroy: wl_listener,
     pub events: C2RustUnnamed_0,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_device {
     pub fd: libc::c_int,
     pub dev: dev_t,
@@ -284,8 +284,8 @@ pub const WLR_DEBUG: wlr_log_importance = 3;
 pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct sd_bus_error {
     pub name: *const libc::c_char,
     pub message: *const libc::c_char,
@@ -297,8 +297,8 @@ pub type sd_bus_message_handler_t
                                 _: *mut sd_bus_error) -> libc::c_int>;
 pub type C2RustUnnamed_1 = libc::c_uint;
 pub const DRM_MAJOR: C2RustUnnamed_1 = 226;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct logind_session {
     pub base: wlr_session,
     pub bus: *mut sd_bus,
@@ -1675,7 +1675,8 @@ unsafe extern "C" fn logind_session_create(mut disp: *mut wl_display)
 }
 #[no_mangle]
 pub static mut session_logind: session_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 session_impl{create:
@@ -1710,4 +1711,4 @@ pub static mut session_logind: session_impl =
                                               -> bool),};
             init
         }
-    };
+};

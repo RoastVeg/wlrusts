@@ -20,16 +20,16 @@ pub type __uint64_t = libc::c_ulong;
 pub type uint32_t = __uint32_t;
 pub type uint64_t = __uint64_t;
 pub type size_t = libc::c_ulong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format {
     pub format: uint32_t,
     pub len: size_t,
     pub cap: size_t,
     pub modifiers: [uint64_t; 0],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format_set {
     pub len: size_t,
     pub cap: size_t,

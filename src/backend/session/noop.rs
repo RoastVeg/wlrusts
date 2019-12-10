@@ -21,14 +21,14 @@ extern "C" {
     #[no_mangle]
     fn strerror(_: libc::c_int) -> *mut libc::c_char;
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -37,13 +37,13 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct session_impl {
     pub create: Option<unsafe extern "C" fn(_: *mut wl_display)
                            -> *mut wlr_session>,
@@ -56,8 +56,8 @@ pub struct session_impl {
     pub change_vt: Option<unsafe extern "C" fn(_: *mut wlr_session,
                                                _: libc::c_uint) -> bool>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_session {
     pub impl_0: *const session_impl,
     pub session_signal: wl_signal,
@@ -71,8 +71,8 @@ pub struct wlr_session {
     pub display_destroy: wl_listener,
     pub events: C2RustUnnamed,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub destroy: wl_signal,
 }
@@ -123,7 +123,8 @@ unsafe extern "C" fn noop_session_create(mut disp: *mut wl_display)
 }
 #[no_mangle]
 pub static mut session_noop: session_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 session_impl{create:
@@ -158,4 +159,4 @@ pub static mut session_noop: session_impl =
                                               -> bool),};
             init
         }
-    };
+};

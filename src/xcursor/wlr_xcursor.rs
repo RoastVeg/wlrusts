@@ -114,8 +114,8 @@ pub const WLR_EDGE_NONE: wlr_edges = 0;
  * schedule. Send an email to ~sircmpwn/wlroots-announce+subscribe@lists.sr.ht
  * to receive these announcements.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xcursor_image {
     pub width: uint32_t,
     pub height: uint32_t,
@@ -124,8 +124,8 @@ pub struct wlr_xcursor_image {
     pub delay: uint32_t,
     pub buffer: *mut uint8_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xcursor {
     pub image_count: libc::c_uint,
     pub images: *mut *mut wlr_xcursor_image,
@@ -136,16 +136,16 @@ pub struct wlr_xcursor {
 /* *
  * Container for an Xcursor theme.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xcursor_theme {
     pub cursor_count: libc::c_uint,
     pub cursors: *mut *mut wlr_xcursor,
     pub name: *mut libc::c_char,
     pub size: libc::c_int,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct cursor_metadata {
     pub name: *const libc::c_char,
     pub width: libc::c_int,
@@ -158,16 +158,16 @@ pub struct cursor_metadata {
  * Other data structures exposed by the library API
  */
 pub type XcursorImages = _XcursorImages;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _XcursorImages {
     pub nimage: libc::c_int,
     pub images: *mut *mut XcursorImage,
     pub name: *mut libc::c_char,
 }
 pub type XcursorImage = _XcursorImage;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _XcursorImage {
     pub version: XcursorUInt,
     pub size: XcursorDim,

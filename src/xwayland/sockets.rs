@@ -62,14 +62,14 @@ pub const SOCK_RAW: __socket_type = 3;
 pub const SOCK_DGRAM: __socket_type = 2;
 pub const SOCK_STREAM: __socket_type = 1;
 pub type sa_family_t = libc::c_ushort;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct sockaddr {
     pub sa_family: sa_family_t,
     pub sa_data: [libc::c_char; 14],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct sockaddr_un {
     pub sun_family: sa_family_t,
     pub sun_path: [libc::c_char; 108],

@@ -63,15 +63,15 @@ extern "C" {
 }
 pub type __uint32_t = libc::c_uint;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -80,21 +80,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -107,8 +107,8 @@ pub type wl_global_bind_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_client, _: *mut libc::c_void,
                                 _: uint32_t, _: uint32_t) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -117,8 +117,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -129,8 +129,8 @@ pub type wl_resource_destroy_func_t
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_input_inhibit_manager {
     pub global: *mut wl_global,
     pub active_client: *mut wl_client,
@@ -139,8 +139,8 @@ pub struct wlr_input_inhibit_manager {
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub activate: wl_signal,
     pub deactivate: wl_signal,
@@ -153,8 +153,8 @@ pub struct C2RustUnnamed {
  * @ingroup iface_zwlr_input_inhibitor_v1
  * @struct zwlr_input_inhibitor_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwlr_input_inhibitor_v1_interface {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource) -> ()>,
@@ -213,8 +213,8 @@ pub struct zwlr_input_inhibitor_v1_interface {
  * @ingroup iface_zwlr_input_inhibit_manager_v1
  * @struct zwlr_input_inhibit_manager_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwlr_input_inhibit_manager_v1_interface {
     pub get_inhibitor: Option<unsafe extern "C" fn(_: *mut wl_client,
                                                    _: *mut wl_resource,
@@ -277,7 +277,8 @@ unsafe extern "C" fn input_inhibitor_resource_destroy(mut resource:
     input_inhibit_manager_deactivate(manager);
 }
 static mut input_inhibitor_implementation: zwlr_input_inhibitor_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwlr_input_inhibitor_v1_interface{destroy:
@@ -290,7 +291,7 @@ static mut input_inhibitor_implementation: zwlr_input_inhibitor_v1_interface =
                                                                    -> ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn inhibit_manager_get_inhibitor(mut client: *mut wl_client,
                                                    mut resource:
                                                        *mut wl_resource,
@@ -326,7 +327,8 @@ unsafe extern "C" fn inhibit_manager_get_inhibitor(mut client: *mut wl_client,
 }
 static mut inhibit_manager_implementation:
        zwlr_input_inhibit_manager_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwlr_input_inhibit_manager_v1_interface{get_inhibitor:
@@ -342,7 +344,7 @@ static mut inhibit_manager_implementation:
                                                                              ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn input_manager_resource_destroy(mut resource:
                                                         *mut wl_resource) {
     let mut manager: *mut wlr_input_inhibit_manager =

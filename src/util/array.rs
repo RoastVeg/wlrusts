@@ -3,9 +3,8 @@ pub type __uint32_t = libc::c_uint;
 pub type uint32_t = __uint32_t;
 pub type size_t = libc::c_ulong;
 // https://www.geeksforgeeks.org/move-zeroes-end-array/
-#[no_mangle]
-pub unsafe extern "C" fn push_zeroes_to_end(mut arr: *mut uint32_t,
-                                            mut n: size_t) -> size_t {
+pub unsafe fn push_zeroes_to_end(mut arr: *mut uint32_t,
+                                 mut n: size_t) -> size_t {
     let mut count: size_t = 0i32 as size_t;
     let mut i: size_t = 0i32 as size_t;
     while i < n {
@@ -24,10 +23,9 @@ pub unsafe extern "C" fn push_zeroes_to_end(mut arr: *mut uint32_t,
     }
     return ret;
 }
-#[no_mangle]
-pub unsafe extern "C" fn set_add(mut values: *mut uint32_t,
-                                 mut len: *mut size_t, mut cap: size_t,
-                                 mut target: uint32_t) -> bool {
+pub unsafe fn set_add(mut values: *mut uint32_t,
+                      mut len: *mut size_t, mut cap: size_t,
+                      mut target: uint32_t) -> bool {
     if *len == cap { return 0i32 != 0 }
     let mut i: uint32_t = 0i32 as uint32_t;
     while (i as libc::c_ulong) < *len {
@@ -49,10 +47,9 @@ pub unsafe extern "C" fn set_add(mut values: *mut uint32_t,
  * "set"s should only be modified with set_* functions
  * Values MUST be greater than 0
  */
-#[no_mangle]
-pub unsafe extern "C" fn set_remove(mut values: *mut uint32_t,
-                                    mut len: *mut size_t, mut cap: size_t,
-                                    mut target: uint32_t) -> bool {
+pub unsafe fn set_remove(mut values: *mut uint32_t,
+                         mut len: *mut size_t, mut cap: size_t,
+                         mut target: uint32_t) -> bool {
     let mut i: uint32_t = 0i32 as uint32_t;
     while (i as libc::c_ulong) < *len {
         if *values.offset(i as isize) == target {

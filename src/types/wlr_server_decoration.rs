@@ -125,15 +125,15 @@ pub type __int32_t = libc::c_int;
 pub type __uint32_t = libc::c_uint;
 pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -142,21 +142,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -169,8 +169,8 @@ pub type wl_global_bind_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_client, _: *mut libc::c_void,
                                 _: uint32_t, _: uint32_t) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -179,16 +179,16 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
 pub type wl_resource_destroy_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_resource) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_server_decoration_manager {
     pub global: *mut wl_global,
     pub resources: wl_list,
@@ -198,14 +198,14 @@ pub struct wlr_server_decoration_manager {
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub new_decoration: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_server_decoration {
     pub resource: *mut wl_resource,
     pub surface: *mut wlr_surface,
@@ -215,17 +215,17 @@ pub struct wlr_server_decoration {
     pub surface_destroy_listener: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub destroy: wl_signal,
     pub mode: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface {
     pub resource: *mut wl_resource,
-    pub renderer: *mut wlr_renderer,
+    pub renderer: *mut crate::src::backend::drm::atomic::wlr_renderer,
     pub buffer: *mut wlr_buffer,
     pub sx: libc::c_int,
     pub sy: libc::c_int,
@@ -243,8 +243,8 @@ pub struct wlr_surface {
     pub renderer_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub commit: wl_signal,
     pub new_subsurface: wl_signal,
@@ -259,15 +259,15 @@ pub struct C2RustUnnamed_1 {
 // clipped to bounds
 // wl_resource
 // in surface-local coordinates
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface_role {
     pub name: *const libc::c_char,
     pub commit: Option<unsafe extern "C" fn(_: *mut wlr_surface) -> ()>,
     pub precommit: Option<unsafe extern "C" fn(_: *mut wlr_surface) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface_state {
     pub committed: uint32_t,
     pub buffer_resource: *mut wl_resource,
@@ -296,33 +296,33 @@ pub const WL_OUTPUT_TRANSFORM_180: wl_output_transform = 2;
 pub const WL_OUTPUT_TRANSFORM_90: wl_output_transform = 1;
 pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
 pub type pixman_region32_t = pixman_region32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
 }
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
     pub x2: int32_t,
     pub y2: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
-    pub texture: *mut wlr_texture,
+    pub texture: *mut crate::src::backend::drm::atomic::wlr_texture,
     pub released: bool,
     pub n_refs: size_t,
     pub resource_destroy: wl_listener,
@@ -338,8 +338,8 @@ pub const ORG_KDE_KWIN_SERVER_DECORATION_MANAGER_MODE_NONE:
  * @ingroup iface_org_kde_kwin_server_decoration_manager
  * @struct org_kde_kwin_server_decoration_manager_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct org_kde_kwin_server_decoration_manager_interface {
     pub create: Option<unsafe extern "C" fn(_: *mut wl_client,
                                             _: *mut wl_resource, _: uint32_t,
@@ -356,8 +356,8 @@ pub const WLR_SILENT: wlr_log_importance = 0;
  * @ingroup iface_org_kde_kwin_server_decoration
  * @struct org_kde_kwin_server_decoration_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct org_kde_kwin_server_decoration_interface {
     pub release: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource) -> ()>,
@@ -495,7 +495,8 @@ unsafe extern "C" fn server_decoration_handle_surface_destroy(mut listener:
     server_decoration_destroy(decoration);
 }
 static mut server_decoration_impl: org_kde_kwin_server_decoration_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 org_kde_kwin_server_decoration_interface{release:
@@ -520,7 +521,7 @@ static mut server_decoration_impl: org_kde_kwin_server_decoration_interface =
                                                                               ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn manager_from_resource(mut resource: *mut wl_resource)
  -> *mut wlr_server_decoration_manager {
     if wl_resource_instance_of(resource,
@@ -597,7 +598,8 @@ unsafe extern "C" fn server_decoration_manager_handle_create(mut client:
 }
 static mut server_decoration_manager_impl:
        org_kde_kwin_server_decoration_manager_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 org_kde_kwin_server_decoration_manager_interface{create:
@@ -615,7 +617,7 @@ static mut server_decoration_manager_impl:
                                                                                       ()),};
             init
         }
-    };
+};
 #[no_mangle]
 pub unsafe extern "C" fn wlr_server_decoration_manager_set_default_mode(mut manager:
                                                                             *mut wlr_server_decoration_manager,

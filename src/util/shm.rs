@@ -24,8 +24,8 @@ pub type __clockid_t = libc::c_int;
 pub type __syscall_slong_t = libc::c_long;
 pub type mode_t = __mode_t;
 pub type size_t = libc::c_ulong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct timespec {
     pub tv_sec: __time_t,
     pub tv_nsec: __syscall_slong_t,

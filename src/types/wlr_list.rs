@@ -24,8 +24,8 @@ pub type ssize_t = __ssize_t;
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_list {
     pub capacity: size_t,
     pub length: size_t,

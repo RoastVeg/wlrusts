@@ -77,14 +77,14 @@ pub type __blksize_t = libc::c_long;
 pub type __blkcnt_t = libc::c_long;
 pub type __syscall_slong_t = libc::c_long;
 pub type pid_t = __pid_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct timespec {
     pub tv_sec: __time_t,
     pub tv_nsec: __syscall_slong_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct stat {
     pub st_dev: __dev_t,
     pub st_ino: __ino_t,
@@ -103,8 +103,8 @@ pub struct stat {
     pub __glibc_reserved: [__syscall_slong_t; 3],
 }
 pub type dev_t = __dev_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct vt_mode {
     pub mode: libc::c_char,
     pub waitv: libc::c_char,
@@ -112,15 +112,15 @@ pub struct vt_mode {
     pub acqsig: libc::c_short,
     pub frsig: libc::c_short,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct vt_stat {
     pub v_active: libc::c_ushort,
     pub v_signal: libc::c_ushort,
     pub v_state: libc::c_ushort,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
@@ -129,8 +129,8 @@ pub type wl_event_loop_signal_func_t
     =
     Option<unsafe extern "C" fn(_: libc::c_int, _: *mut libc::c_void)
                -> libc::c_int>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -139,8 +139,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -148,8 +148,8 @@ pub struct wl_signal {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct session_impl {
     pub create: Option<unsafe extern "C" fn(_: *mut wl_display)
                            -> *mut wlr_session>,
@@ -162,8 +162,8 @@ pub struct session_impl {
     pub change_vt: Option<unsafe extern "C" fn(_: *mut wlr_session,
                                                _: libc::c_uint) -> bool>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_session {
     pub impl_0: *const session_impl,
     pub session_signal: wl_signal,
@@ -177,13 +177,13 @@ pub struct wlr_session {
     pub display_destroy: wl_listener,
     pub events: C2RustUnnamed,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_device {
     pub fd: libc::c_int,
     pub dev: dev_t,
@@ -198,8 +198,8 @@ pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
 pub type C2RustUnnamed_0 = libc::c_uint;
 pub const DRM_MAJOR: C2RustUnnamed_0 = 226;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct direct_session {
     pub base: wlr_session,
     pub tty_fd: libc::c_int,
@@ -571,7 +571,8 @@ unsafe extern "C" fn direct_session_create(mut disp: *mut wl_display)
 }
 #[no_mangle]
 pub static mut session_direct: session_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 session_impl{create:
@@ -606,4 +607,4 @@ pub static mut session_direct: session_impl =
                                               -> bool),};
             init
         }
-    };
+};

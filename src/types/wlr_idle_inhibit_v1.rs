@@ -154,15 +154,15 @@ pub type __int32_t = libc::c_int;
 pub type __uint32_t = libc::c_uint;
 pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -171,21 +171,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -198,8 +198,8 @@ pub type wl_global_bind_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_client, _: *mut libc::c_void,
                                 _: uint32_t, _: uint32_t) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -208,8 +208,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -231,8 +231,8 @@ pub type wl_resource_destroy_func_t
  * The effect could also be limited to outputs it is displayed on (e.g.
  * dimm/dpms off outputs, except the one a video is displayed on).
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_idle_inhibit_manager_v1 {
     pub inhibitors: wl_list,
     pub global: *mut wl_global,
@@ -240,14 +240,14 @@ pub struct wlr_idle_inhibit_manager_v1 {
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub new_inhibitor: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_idle_inhibitor_v1 {
     pub surface: *mut wlr_surface,
     pub resource: *mut wl_resource,
@@ -256,16 +256,16 @@ pub struct wlr_idle_inhibitor_v1 {
     pub events: C2RustUnnamed_0,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface {
     pub resource: *mut wl_resource,
-    pub renderer: *mut wlr_renderer,
+    pub renderer: *mut crate::src::backend::drm::atomic::wlr_renderer,
     pub buffer: *mut wlr_buffer,
     pub sx: libc::c_int,
     pub sy: libc::c_int,
@@ -283,22 +283,22 @@ pub struct wlr_surface {
     pub renderer_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub commit: wl_signal,
     pub new_subsurface: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface_role {
     pub name: *const libc::c_char,
     pub commit: Option<unsafe extern "C" fn(_: *mut wlr_surface) -> ()>,
     pub precommit: Option<unsafe extern "C" fn(_: *mut wlr_surface) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface_state {
     pub committed: uint32_t,
     pub buffer_resource: *mut wl_resource,
@@ -327,8 +327,8 @@ pub const WL_OUTPUT_TRANSFORM_180: wl_output_transform = 2;
 pub const WL_OUTPUT_TRANSFORM_90: wl_output_transform = 1;
 pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
 pub type pixman_region32_t = pixman_region32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
@@ -337,26 +337,26 @@ pub struct pixman_region32 {
  * 32 bit regions
  */
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
     pub x2: int32_t,
     pub y2: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
-    pub texture: *mut wlr_texture,
+    pub texture: *mut crate::src::backend::drm::atomic::wlr_texture,
     pub released: bool,
     pub n_refs: size_t,
     pub resource_destroy: wl_listener,
@@ -365,8 +365,8 @@ pub struct wlr_buffer {
  * @ingroup iface_zwp_idle_inhibit_manager_v1
  * @struct zwp_idle_inhibit_manager_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwp_idle_inhibit_manager_v1_interface {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource) -> ()>,
@@ -386,8 +386,8 @@ pub struct zwp_idle_inhibit_manager_v1_interface {
  * @ingroup iface_zwp_idle_inhibitor_v1
  * @struct zwp_idle_inhibitor_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwp_idle_inhibitor_v1_interface {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource) -> ()>,
@@ -469,7 +469,8 @@ unsafe extern "C" fn idle_inhibitor_v1_handle_destroy(mut client:
     wl_resource_destroy(manager_resource);
 }
 static mut idle_inhibitor_impl: zwp_idle_inhibitor_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwp_idle_inhibitor_v1_interface{destroy:
@@ -482,7 +483,7 @@ static mut idle_inhibitor_impl: zwp_idle_inhibitor_v1_interface =
                                                                  -> ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn manager_handle_create_inhibitor(mut client:
                                                          *mut wl_client,
                                                      mut resource:
@@ -536,7 +537,8 @@ unsafe extern "C" fn manager_handle_destroy(mut client: *mut wl_client,
     wl_resource_destroy(manager_resource);
 }
 static mut idle_inhibit_impl: zwp_idle_inhibit_manager_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwp_idle_inhibit_manager_v1_interface{destroy:
@@ -562,7 +564,7 @@ static mut idle_inhibit_impl: zwp_idle_inhibit_manager_v1_interface =
                                                                            ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn handle_display_destroy(mut listener: *mut wl_listener,
                                             mut data: *mut libc::c_void) {
     let mut idle_inhibit: *mut wlr_idle_inhibit_manager_v1 =

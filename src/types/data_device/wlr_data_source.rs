@@ -75,15 +75,15 @@ pub type __int32_t = libc::c_int;
 pub type __uint32_t = libc::c_uint;
 pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -92,28 +92,28 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_array {
     pub size: size_t,
     pub alloc: size_t,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -122,8 +122,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -133,8 +133,8 @@ pub type wl_resource_destroy_func_t
 pub type wl_data_source_error = libc::c_uint;
 pub const WL_DATA_SOURCE_ERROR_INVALID_SOURCE: wl_data_source_error = 1;
 pub const WL_DATA_SOURCE_ERROR_INVALID_ACTION_MASK: wl_data_source_error = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_data_source_interface {
     pub offer: Option<unsafe extern "C" fn(_: *mut wl_client,
                                            _: *mut wl_resource,
@@ -158,8 +158,8 @@ pub const WL_DATA_DEVICE_MANAGER_DND_ACTION_COPY:
 pub const WL_DATA_DEVICE_MANAGER_DND_ACTION_NONE:
           wl_data_device_manager_dnd_action =
     0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_data_source {
     pub impl_0: *const wlr_data_source_impl,
     pub mime_types: wl_array,
@@ -169,13 +169,13 @@ pub struct wlr_data_source {
     pub compositor_action: uint32_t,
     pub events: C2RustUnnamed,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_data_source_impl {
     pub send: Option<unsafe extern "C" fn(_: *mut wlr_data_source,
                                           _: *const libc::c_char, _: int32_t)
@@ -192,8 +192,8 @@ pub struct wlr_data_source_impl {
                                                     wl_data_device_manager_dnd_action)
                                -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_client_data_source {
     pub source: wlr_data_source,
     pub impl_0: wlr_data_source_impl,
@@ -634,7 +634,8 @@ unsafe extern "C" fn data_source_offer(mut client: *mut wl_client,
     *p = dup_mime_type;
 }
 static mut data_source_impl: wl_data_source_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wl_data_source_interface{offer:
@@ -664,7 +665,7 @@ static mut data_source_impl: wl_data_source_interface =
                                                           -> ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn data_source_handle_resource_destroy(mut resource:
                                                              *mut wl_resource) {
     let mut source: *mut wlr_client_data_source =

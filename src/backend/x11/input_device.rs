@@ -76,8 +76,8 @@ pub type uint8_t = __uint8_t;
 pub type uint16_t = __uint16_t;
 pub type uint32_t = __uint32_t;
 pub type uint64_t = __uint64_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_generic_error_t {
     pub response_type: uint8_t,
     pub error_code: uint8_t,
@@ -89,8 +89,8 @@ pub struct xcb_generic_error_t {
     pub pad: [uint32_t; 5],
     pub full_sequence: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_void_cookie_t {
     pub sequence: libc::c_uint,
 }
@@ -99,8 +99,8 @@ pub type xcb_colormap_t = uint32_t;
 pub type xcb_atom_t = uint32_t;
 pub type xcb_visualid_t = uint32_t;
 pub type xcb_timestamp_t = uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_screen_t {
     pub root: xcb_window_t,
     pub default_colormap: xcb_colormap_t,
@@ -119,8 +119,8 @@ pub struct xcb_screen_t {
     pub root_depth: uint8_t,
     pub allowed_depths_len: uint8_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_ge_generic_event_t {
     pub response_type: uint8_t,
     pub extension: uint8_t,
@@ -137,13 +137,13 @@ pub const XCB_BUTTON_INDEX_3: xcb_button_index_t = 3;
 pub const XCB_BUTTON_INDEX_2: xcb_button_index_t = 2;
 pub const XCB_BUTTON_INDEX_1: xcb_button_index_t = 1;
 pub const XCB_BUTTON_INDEX_ANY: xcb_button_index_t = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_query_pointer_cookie_t {
     pub sequence: libc::c_uint,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_query_pointer_reply_t {
     pub response_type: uint8_t,
     pub same_screen: uint8_t,
@@ -160,24 +160,24 @@ pub struct xcb_query_pointer_reply_t {
 }
 pub type xcb_input_device_id_t = uint16_t;
 pub type xcb_input_fp1616_t = int32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_input_group_info_t {
     pub base: uint8_t,
     pub latched: uint8_t,
     pub locked: uint8_t,
     pub effective: uint8_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_input_modifier_info_t {
     pub base: uint32_t,
     pub latched: uint32_t,
     pub locked: uint32_t,
     pub effective: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_input_key_press_event_t {
     pub response_type: uint8_t,
     pub extension: uint8_t,
@@ -204,8 +204,8 @@ pub struct xcb_input_key_press_event_t {
     pub group: xcb_input_group_info_t,
 }
 pub type xcb_input_key_release_event_t = xcb_input_key_press_event_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_input_button_press_event_t {
     pub response_type: uint8_t,
     pub extension: uint8_t,
@@ -233,8 +233,8 @@ pub struct xcb_input_button_press_event_t {
 }
 pub type xcb_input_button_release_event_t = xcb_input_button_press_event_t;
 pub type xcb_input_motion_event_t = xcb_input_button_press_event_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_input_enter_event_t {
     pub response_type: uint8_t,
     pub extension: uint8_t,
@@ -261,8 +261,8 @@ pub struct xcb_input_enter_event_t {
     pub group: xcb_input_group_info_t,
 }
 pub type xcb_input_leave_event_t = xcb_input_enter_event_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct xcb_input_touch_begin_event_t {
     pub response_type: uint8_t,
     pub extension: uint8_t,
@@ -304,15 +304,15 @@ pub const WLR_INPUT_DEVICE_TABLET_TOOL: wlr_input_device_type = 3;
 pub const WLR_INPUT_DEVICE_TOUCH: wlr_input_device_type = 2;
 pub const WLR_INPUT_DEVICE_POINTER: wlr_input_device_type = 1;
 pub const WLR_INPUT_DEVICE_KEYBOARD: wlr_input_device_type = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -321,21 +321,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -344,8 +344,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -354,8 +354,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -365,18 +365,18 @@ pub type wl_resource_destroy_func_t
 pub type xkb_mod_index_t = uint32_t;
 pub type xkb_mod_mask_t = uint32_t;
 pub type xkb_led_index_t = uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_impl {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_keyboard) -> ()>,
     pub led_update: Option<unsafe extern "C" fn(_: *mut wlr_keyboard,
                                                 _: uint32_t) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard {
     pub impl_0: *const wlr_keyboard_impl,
-    pub group: *mut wlr_keyboard_group,
+    pub group: *mut crate::src::types::wlr_keyboard_group::wlr_keyboard_group,
     pub keymap_string: *mut libc::c_char,
     pub keymap_size: size_t,
     pub keymap: *mut xkb_keymap,
@@ -390,8 +390,8 @@ pub struct wlr_keyboard {
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub key: wl_signal,
     pub modifiers: wl_signal,
@@ -399,14 +399,14 @@ pub struct C2RustUnnamed {
     pub repeat_info: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub rate: int32_t,
     pub delay: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_modifiers {
     pub depressed: xkb_mod_mask_t,
     pub latched: xkb_mod_mask_t,
@@ -416,8 +416,8 @@ pub struct wlr_keyboard_modifiers {
 pub type wlr_key_state = libc::c_uint;
 pub const WLR_KEY_PRESSED: wlr_key_state = 1;
 pub const WLR_KEY_RELEASED: wlr_key_state = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_keyboard_key {
     pub time_msec: uint32_t,
     pub keycode: uint32_t,
@@ -428,20 +428,20 @@ pub struct wlr_event_keyboard_key {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_pointer_impl {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_pointer) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_pointer {
     pub impl_0: *const wlr_pointer_impl,
     pub events: C2RustUnnamed_1,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub motion: wl_signal,
     pub motion_absolute: wl_signal,
@@ -455,8 +455,8 @@ pub struct C2RustUnnamed_1 {
     pub pinch_update: wl_signal,
     pub pinch_end: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_input_device {
     pub impl_0: *const wlr_input_device_impl,
     pub type_0: wlr_input_device_type,
@@ -471,13 +471,13 @@ pub struct wlr_input_device {
     pub data: *mut libc::c_void,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_2 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union C2RustUnnamed_3 {
     pub _device: *mut libc::c_void,
     pub keyboard: *mut wlr_keyboard,
@@ -496,10 +496,10 @@ pub union C2RustUnnamed_3 {
  * with more than one mode. I don't own any such hardware so I cannot test it
  * and it is too complicated to make a meaningful implementation of blindly.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet_pad {
-    pub impl_0: *mut wlr_tablet_pad_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_tablet_pad_impl,
     pub events: C2RustUnnamed_4,
     pub button_count: size_t,
     pub ring_count: size_t,
@@ -512,15 +512,15 @@ pub struct wlr_tablet_pad {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_list {
     pub capacity: size_t,
     pub length: size_t,
     pub items: *mut *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_4 {
     pub button: wl_signal,
     pub ring: wl_signal,
@@ -544,17 +544,17 @@ pub struct C2RustUnnamed_4 {
 /* * A mouse tool with a lens */
 /* * A rotary device with positional and rotation data */
 // Capabilities
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet {
-    pub impl_0: *mut wlr_tablet_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_tablet_impl,
     pub events: C2RustUnnamed_5,
     pub name: *mut libc::c_char,
     pub paths: wlr_list,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_5 {
     pub axis: wl_signal,
     pub proximity: wl_signal,
@@ -565,23 +565,23 @@ pub struct C2RustUnnamed_5 {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_touch {
     pub impl_0: *const wlr_touch_impl,
     pub events: C2RustUnnamed_6,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_6 {
     pub down: wl_signal,
     pub up: wl_signal,
     pub motion: wl_signal,
     pub cancel: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_touch_impl {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_touch) -> ()>,
 }
@@ -589,34 +589,34 @@ pub struct wlr_touch_impl {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_switch {
-    pub impl_0: *mut wlr_switch_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_switch_impl,
     pub events: C2RustUnnamed_7,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_7 {
     pub toggle: wl_signal,
 }
 /* Note: these are circular dependencies */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_input_device_impl {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_input_device) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_motion_absolute {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
     pub x: libc::c_double,
     pub y: libc::c_double,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_button {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -631,8 +631,8 @@ pub const WLR_AXIS_SOURCE_WHEEL: wlr_axis_source = 0;
 pub type wlr_axis_orientation = libc::c_uint;
 pub const WLR_AXIS_ORIENTATION_HORIZONTAL: wlr_axis_orientation = 1;
 pub const WLR_AXIS_ORIENTATION_VERTICAL: wlr_axis_orientation = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_pointer_axis {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -641,8 +641,8 @@ pub struct wlr_event_pointer_axis {
     pub delta: libc::c_double,
     pub delta_discrete: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_touch_down {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -650,15 +650,15 @@ pub struct wlr_event_touch_down {
     pub x: libc::c_double,
     pub y: libc::c_double,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_touch_up {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
     pub touch_id: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_event_touch_motion {
     pub device: *mut wlr_input_device,
     pub time_msec: uint32_t,
@@ -675,15 +675,15 @@ pub type EGLenum = libc::c_uint;
 /*
  * 32 bit regions
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
 }
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
@@ -691,15 +691,15 @@ pub struct pixman_box32 {
     pub y2: int32_t,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
 }
 pub type pixman_region32_t = pixman_region32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_dmabuf_attributes {
     pub width: int32_t,
     pub height: int32_t,
@@ -711,16 +711,16 @@ pub struct wlr_dmabuf_attributes {
     pub stride: [uint32_t; 4],
     pub fd: [libc::c_int; 4],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format {
     pub format: uint32_t,
     pub len: size_t,
     pub cap: size_t,
     pub modifiers: [uint64_t; 0],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format_set {
     pub len: size_t,
     pub cap: size_t,
@@ -730,8 +730,8 @@ pub struct wlr_drm_format_set {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_egl {
     pub platform: EGLenum,
     pub display: EGLDisplay,
@@ -742,8 +742,8 @@ pub struct wlr_egl {
     pub wl_display: *mut wl_display,
     pub dmabuf_formats: wlr_drm_format_set,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_8 {
     pub bind_wayland_display_wl: bool,
     pub buffer_age_ext: bool,
@@ -754,27 +754,27 @@ pub struct C2RustUnnamed_8 {
     pub swap_buffers_with_damage_ext: bool,
     pub swap_buffers_with_damage_khr: bool,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_backend {
-    pub impl_0: *const wlr_backend_impl,
+    pub impl_0: *const crate::src::backend::backend::wlr_backend_impl,
     pub events: C2RustUnnamed_9,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_9 {
     pub destroy: wl_signal,
     pub new_input: wl_signal,
     pub new_output: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_renderer {
-    pub impl_0: *const wlr_renderer_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_renderer_impl,
     pub events: C2RustUnnamed_10,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_10 {
     pub destroy: wl_signal,
 }
@@ -794,8 +794,8 @@ pub const WL_OUTPUT_TRANSFORM_270: wl_output_transform = 3;
 pub const WL_OUTPUT_TRANSFORM_180: wl_output_transform = 2;
 pub const WL_OUTPUT_TRANSFORM_90: wl_output_transform = 1;
 pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
     pub texture: *mut wlr_texture,
@@ -817,17 +817,17 @@ pub struct wlr_buffer {
 	 * The buffer's texture, if any. A buffer will not have a texture if the
 	 * client destroys the buffer before it has been released.
 	 */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture {
-    pub impl_0: *const wlr_texture_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_texture_impl,
 }
 /*
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_mode {
     pub width: int32_t,
     pub height: int32_t,
@@ -835,8 +835,8 @@ pub struct wlr_output_mode {
     pub preferred: bool,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_cursor {
     pub output: *mut wlr_output,
     pub x: libc::c_double,
@@ -849,13 +849,13 @@ pub struct wlr_output_cursor {
     pub hotspot_y: int32_t,
     pub link: wl_list,
     pub texture: *mut wlr_texture,
-    pub surface: *mut wlr_surface,
+    pub surface: *mut crate::src::types::data_device::wlr_data_device::wlr_surface,
     pub surface_commit: wl_listener,
     pub surface_destroy: wl_listener,
     pub events: C2RustUnnamed_11,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_11 {
     pub destroy: wl_signal,
 }
@@ -870,8 +870,8 @@ pub struct C2RustUnnamed_11 {
  * render and call `wlr_output_commit`. No rendering should happen outside a
  * `frame` event handler or before `wlr_output_attach_render`.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output {
     pub impl_0: *const wlr_output_impl,
     pub backend: *mut wlr_backend,
@@ -909,8 +909,8 @@ pub struct wlr_output {
     pub display_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_12 {
     pub frame: wl_signal,
     pub needs_frame: wl_signal,
@@ -926,8 +926,8 @@ pub struct C2RustUnnamed_12 {
 /* *
  * Holds the double-buffered output state.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_state {
     pub committed: uint32_t,
     pub damage: pixman_region32_t,
@@ -938,8 +938,8 @@ pub struct wlr_output_state {
 pub type wlr_output_state_buffer_type = libc::c_uint;
 pub const WLR_OUTPUT_STATE_BUFFER_SCANOUT: wlr_output_state_buffer_type = 1;
 pub const WLR_OUTPUT_STATE_BUFFER_RENDER: wlr_output_state_buffer_type = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_impl {
     pub enable: Option<unsafe extern "C" fn(_: *mut wlr_output, _: bool)
                            -> bool>,
@@ -979,8 +979,8 @@ pub struct wlr_output_impl {
                                                    _: *mut wlr_buffer)
                                   -> bool>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_x11_backend {
     pub backend: wlr_backend,
     pub wl_display: *mut wl_display,
@@ -1001,16 +1001,16 @@ pub struct wlr_x11_backend {
     pub xinput_opcode: uint8_t,
     pub display_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_13 {
     pub wm_protocols: xcb_atom_t,
     pub wm_delete_window: xcb_atom_t,
     pub net_wm_name: xcb_atom_t,
     pub utf8_string: xcb_atom_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_x11_output {
     pub wlr_output: wlr_output,
     pub x11: *mut wlr_x11_backend,
@@ -1026,8 +1026,8 @@ pub struct wlr_x11_output {
     pub frame_delay: libc::c_int,
     pub cursor_hidden: bool,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_x11_touchpoint {
     pub x11_id: uint32_t,
     pub wayland_id: libc::c_int,
@@ -1377,7 +1377,8 @@ unsafe extern "C" fn input_device_destroy(mut wlr_device:
 }
 #[no_mangle]
 pub static mut input_device_impl: wlr_input_device_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_input_device_impl{destroy:
@@ -1387,13 +1388,14 @@ pub static mut input_device_impl: wlr_input_device_impl =
                                                        -> ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn keyboard_destroy(mut wlr_keyboard: *mut wlr_keyboard) {
     // Don't free the keyboard, it's on the stack
 }
 #[no_mangle]
 pub static mut keyboard_impl: wlr_keyboard_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_keyboard_impl{destroy:
@@ -1404,13 +1406,14 @@ pub static mut keyboard_impl: wlr_keyboard_impl =
                                   led_update: None,};
             init
         }
-    };
+};
 unsafe extern "C" fn pointer_destroy(mut wlr_pointer: *mut wlr_pointer) {
     // Don't free the pointer, it's on the stack
 }
 #[no_mangle]
 pub static mut pointer_impl: wlr_pointer_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_pointer_impl{destroy:
@@ -1420,13 +1423,14 @@ pub static mut pointer_impl: wlr_pointer_impl =
                                                   -> ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn touch_destroy(mut wlr_touch: *mut wlr_touch) {
     // Don't free the touch, it's on the stack
 }
 #[no_mangle]
 pub static mut touch_impl: wlr_touch_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_touch_impl{destroy:
@@ -1436,7 +1440,7 @@ pub static mut touch_impl: wlr_touch_impl =
                                                 -> ()),};
             init
         }
-    };
+};
 // 60 Hz
 // wlr_x11_backend::outputs
 // wlr_x11_touchpoint::link

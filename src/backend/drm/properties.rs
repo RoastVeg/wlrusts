@@ -66,14 +66,14 @@ pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
 pub type __u64 = libc::c_ulonglong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct drm_mode_property_enum {
     pub value: __u64,
     pub name: [libc::c_char; 32],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModePropertyBlob {
     pub id: uint32_t,
     pub length: uint32_t,
@@ -81,8 +81,8 @@ pub struct _drmModePropertyBlob {
 }
 pub type drmModePropertyBlobRes = _drmModePropertyBlob;
 pub type drmModePropertyBlobPtr = *mut _drmModePropertyBlob;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModeProperty {
     pub prop_id: uint32_t,
     pub flags: uint32_t,
@@ -96,8 +96,8 @@ pub struct _drmModeProperty {
 }
 pub type drmModePropertyRes = _drmModeProperty;
 pub type drmModePropertyPtr = *mut _drmModeProperty;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModeObjectProperties {
     pub count_props: uint32_t,
     pub props: *mut uint32_t,
@@ -110,14 +110,14 @@ pub type drmModeObjectPropertiesPtr = *mut _drmModeObjectProperties;
  * See https://01.org/linuxgraphics/gfx-docs/drm/gpu/drm-kms.html#kms-properties
  * for more details.
  */
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union wlr_drm_connector_props {
     pub c2rust_unnamed: C2RustUnnamed,
     pub props: [uint32_t; 4],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub edid: uint32_t,
     pub dpms: uint32_t,
@@ -125,14 +125,14 @@ pub struct C2RustUnnamed {
     pub path: uint32_t,
     pub crtc_id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union wlr_drm_crtc_props {
     pub c2rust_unnamed: C2RustUnnamed_0,
     pub props: [uint32_t; 6],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub rotation: uint32_t,
     pub scaling_mode: uint32_t,
@@ -141,14 +141,14 @@ pub struct C2RustUnnamed_0 {
     pub gamma_lut: uint32_t,
     pub gamma_lut_size: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union wlr_drm_plane_props {
     pub c2rust_unnamed: C2RustUnnamed_1,
     pub props: [uint32_t; 13],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub type_0: uint32_t,
     pub rotation: uint32_t,
@@ -169,8 +169,8 @@ pub struct C2RustUnnamed_1 {
  * the ids.  The prop_info arrays must be sorted by name, as bsearch is used to
  * search them.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct prop_info {
     pub name: *const libc::c_char,
     pub index: size_t,

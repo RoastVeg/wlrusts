@@ -68,14 +68,14 @@ pub type __ssize_t = libc::c_long;
 pub type __syscall_slong_t = libc::c_long;
 pub type __socklen_t = libc::c_uint;
 pub type pid_t = __pid_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct timespec {
     pub tv_sec: __time_t,
     pub tv_nsec: __syscall_slong_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct stat {
     pub st_dev: __dev_t,
     pub st_ino: __ino_t,
@@ -95,8 +95,8 @@ pub struct stat {
 }
 pub type size_t = libc::c_ulong;
 pub type ssize_t = __ssize_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct iovec {
     pub iov_base: *mut libc::c_void,
     pub iov_len: size_t,
@@ -134,8 +134,8 @@ pub const MSG_CTRUNC: C2RustUnnamed = 8;
 pub const MSG_DONTROUTE: C2RustUnnamed = 4;
 pub const MSG_PEEK: C2RustUnnamed = 2;
 pub const MSG_OOB: C2RustUnnamed = 1;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct msghdr {
     pub msg_name: *mut libc::c_void,
     pub msg_namelen: socklen_t,
@@ -145,8 +145,8 @@ pub struct msghdr {
     pub msg_controllen: size_t,
     pub msg_flags: libc::c_int,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct cmsghdr {
     pub cmsg_len: size_t,
     pub cmsg_level: libc::c_int,
@@ -177,8 +177,8 @@ pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct msg {
     pub type_0: msg_type,
     pub path: [libc::c_char; 256],

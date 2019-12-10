@@ -56,8 +56,8 @@ extern "C" {
 pub type __ino64_t = libc::c_ulong;
 pub type __off_t = libc::c_long;
 pub type __off64_t = libc::c_long;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct dirent {
     pub d_ino: __ino64_t,
     pub d_off: __off64_t,
@@ -77,8 +77,8 @@ pub const DT_FIFO: C2RustUnnamed = 1;
 pub const DT_UNKNOWN: C2RustUnnamed = 0;
 pub type DIR = __dirstream;
 pub type size_t = libc::c_ulong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _IO_FILE {
     pub _flags: libc::c_int,
     pub _IO_read_ptr: *mut libc::c_char,
@@ -140,8 +140,8 @@ pub type XcursorBool = libc::c_int;
 pub type XcursorUInt = libc::c_uint;
 pub type XcursorDim = XcursorUInt;
 pub type XcursorPixel = XcursorUInt;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _XcursorImage {
     pub version: XcursorUInt,
     pub size: XcursorDim,
@@ -153,8 +153,8 @@ pub struct _XcursorImage {
     pub pixels: *mut XcursorPixel,
 }
 pub type XcursorImage = _XcursorImage;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _XcursorImages {
     pub nimage: libc::c_int,
     pub images: *mut *mut XcursorImage,
@@ -173,8 +173,8 @@ pub struct _XcursorImages {
  */
 pub type XcursorImages = _XcursorImages;
 pub type XcursorFileHeader = _XcursorFileHeader;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _XcursorFileHeader {
     pub magic: XcursorUInt,
     pub header: XcursorUInt,
@@ -183,8 +183,8 @@ pub struct _XcursorFileHeader {
     pub tocs: *mut XcursorFileToc,
 }
 pub type XcursorFileToc = _XcursorFileToc;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _XcursorFileToc {
     pub type_0: XcursorUInt,
     pub subtype: XcursorUInt,
@@ -203,8 +203,8 @@ pub struct _XcursorFileToc {
 /* absolute position in file */
 /* 32767x32767 max cursor size */
 pub type XcursorFile = _XcursorFile;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _XcursorFile {
     pub closure: *mut libc::c_void,
     pub read: Option<unsafe extern "C" fn(_: *mut XcursorFile,
@@ -233,8 +233,8 @@ pub struct _XcursorFile {
  *	CARD32	    version	chunk type version
  */
 pub type XcursorChunkHeader = _XcursorChunkHeader;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _XcursorChunkHeader {
     pub header: XcursorUInt,
     pub type_0: XcursorUInt,

@@ -22,8 +22,8 @@ pub const WL_OUTPUT_TRANSFORM_270: wl_output_transform = 3;
 pub const WL_OUTPUT_TRANSFORM_180: wl_output_transform = 2;
 pub const WL_OUTPUT_TRANSFORM_90: wl_output_transform = 1;
 pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_box {
     pub x: libc::c_int,
     pub y: libc::c_int,

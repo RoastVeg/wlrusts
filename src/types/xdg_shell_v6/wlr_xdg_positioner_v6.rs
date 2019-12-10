@@ -45,15 +45,15 @@ pub type __int32_t = libc::c_int;
 pub type __uint32_t = libc::c_uint;
 pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -62,21 +62,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -85,8 +85,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -95,8 +95,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -107,8 +107,8 @@ pub type wl_resource_destroy_func_t
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_box {
     pub x: libc::c_int,
     pub y: libc::c_int,
@@ -152,8 +152,8 @@ pub const ZXDG_POSITIONER_V6_CONSTRAINT_ADJUSTMENT_SLIDE_X:
 pub const ZXDG_POSITIONER_V6_CONSTRAINT_ADJUSTMENT_NONE:
           zxdg_positioner_v6_constraint_adjustment =
     0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zxdg_positioner_v6_interface {
     pub destroy: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource) -> ()>,
@@ -182,8 +182,8 @@ pub struct zxdg_positioner_v6_interface {
                                                 _: int32_t, _: int32_t)
                                -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xdg_shell_v6 {
     pub global: *mut wl_global,
     pub clients: wl_list,
@@ -193,14 +193,14 @@ pub struct wlr_xdg_shell_v6 {
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub new_surface: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xdg_client_v6 {
     pub shell: *mut wlr_xdg_shell_v6,
     pub resource: *mut wl_resource,
@@ -210,8 +210,8 @@ pub struct wlr_xdg_client_v6 {
     pub ping_serial: uint32_t,
     pub ping_timer: *mut wl_event_source,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xdg_positioner_v6 {
     pub anchor_rect: wlr_box,
     pub anchor: zxdg_positioner_v6_anchor,
@@ -220,20 +220,20 @@ pub struct wlr_xdg_positioner_v6 {
     pub size: C2RustUnnamed_1,
     pub offset: C2RustUnnamed_0,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub x: int32_t,
     pub y: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub width: int32_t,
     pub height: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xdg_positioner_v6_resource {
     pub resource: *mut wl_resource,
     pub attrs: wlr_xdg_positioner_v6,
@@ -389,7 +389,8 @@ unsafe extern "C" fn xdg_positioner_handle_set_offset(mut client:
     (*positioner).attrs.offset.y = y;
 }
 static mut zxdg_positioner_v6_implementation: zxdg_positioner_v6_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zxdg_positioner_v6_interface{destroy:
@@ -472,7 +473,7 @@ static mut zxdg_positioner_v6_implementation: zxdg_positioner_v6_interface =
                                                               -> ()),};
             init
         }
-    };
+};
 #[no_mangle]
 pub unsafe extern "C" fn wlr_xdg_positioner_v6_get_geometry(mut positioner:
                                                                 *mut wlr_xdg_positioner_v6)

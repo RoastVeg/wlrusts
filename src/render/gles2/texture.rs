@@ -94,15 +94,15 @@ pub type PFNGLEGLIMAGETARGETTEXTURE2DOESPROC
     =
     Option<unsafe extern "C" fn(_: GLenum, _: GLeglImageOES) -> ()>;
 pub type size_t = libc::c_ulong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -111,21 +111,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -134,8 +134,8 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
@@ -223,8 +223,8 @@ pub const WLR_DMABUF_ATTRIBUTES_FLAGS_INTERLACED: wlr_dmabuf_attributes_flags
     2;
 pub const WLR_DMABUF_ATTRIBUTES_FLAGS_Y_INVERT: wlr_dmabuf_attributes_flags =
     1;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_dmabuf_attributes {
     pub width: int32_t,
     pub height: int32_t,
@@ -236,23 +236,23 @@ pub struct wlr_dmabuf_attributes {
     pub stride: [uint32_t; 4],
     pub fd: [libc::c_int; 4],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format {
     pub format: uint32_t,
     pub len: size_t,
     pub cap: size_t,
     pub modifiers: [uint64_t; 0],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format_set {
     pub len: size_t,
     pub cap: size_t,
     pub formats: *mut *mut wlr_drm_format,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_egl {
     pub platform: EGLenum,
     pub display: EGLDisplay,
@@ -263,8 +263,8 @@ pub struct wlr_egl {
     pub wl_display: *mut wl_display,
     pub dmabuf_formats: wlr_drm_format_set,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub bind_wayland_display_wl: bool,
     pub buffer_age_ext: bool,
@@ -279,13 +279,13 @@ pub struct C2RustUnnamed {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture {
     pub impl_0: *const wlr_texture_impl,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture_impl {
     pub get_size: Option<unsafe extern "C" fn(_: *mut wlr_texture,
                                               _: *mut libc::c_int,
@@ -333,8 +333,8 @@ pub const WLR_DEBUG: wlr_log_importance = 3;
 pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_gles2_texture {
     pub wlr_texture: wlr_texture,
     pub egl: *mut wlr_egl,
@@ -348,8 +348,8 @@ pub struct wlr_gles2_texture {
     pub wl_format: wl_shm_format,
     // used to interpret upload data
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_gles2_pixel_format {
     pub wl_format: wl_shm_format,
     pub gl_format: GLint,
@@ -358,8 +358,8 @@ pub struct wlr_gles2_pixel_format {
     pub bpp: libc::c_int,
     pub has_alpha: bool,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_gles2_texture_attribs {
     pub target: GLenum,
     pub tex: GLuint,
@@ -518,7 +518,8 @@ unsafe extern "C" fn gles2_texture_destroy(mut wlr_texture:
     free(texture as *mut libc::c_void);
 }
 static mut texture_impl: wlr_texture_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_texture_impl{get_size:
@@ -570,7 +571,7 @@ static mut texture_impl: wlr_texture_impl =
                                                   -> ()),};
             init
         }
-    };
+};
 #[no_mangle]
 pub unsafe extern "C" fn wlr_gles2_texture_from_pixels(mut egl: *mut wlr_egl,
                                                        mut wl_fmt:

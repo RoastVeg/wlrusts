@@ -189,8 +189,8 @@ pub type EGLConfig = *mut libc::c_void;
 pub type EGLContext = *mut libc::c_void;
 pub type EGLenum = libc::c_uint;
 pub type pixman_image_t = pixman_image;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
@@ -199,8 +199,8 @@ pub struct pixman_region32_data {
  * 32 bit regions
  */
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
@@ -208,22 +208,22 @@ pub struct pixman_box32 {
     pub y2: int32_t,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
 }
 pub type pixman_region32_t = pixman_region32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -232,21 +232,21 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -255,8 +255,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -265,24 +265,24 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
 pub type wl_resource_destroy_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_resource) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format {
     pub format: uint32_t,
     pub len: size_t,
     pub cap: size_t,
     pub modifiers: [uint64_t; 0],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format_set {
     pub len: size_t,
     pub cap: size_t,
@@ -292,8 +292,8 @@ pub struct wlr_drm_format_set {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_egl {
     pub platform: EGLenum,
     pub display: EGLDisplay,
@@ -304,8 +304,8 @@ pub struct wlr_egl {
     pub wl_display: *mut wl_display,
     pub dmabuf_formats: wlr_drm_format_set,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub bind_wayland_display_wl: bool,
     pub buffer_age_ext: bool,
@@ -316,10 +316,10 @@ pub struct C2RustUnnamed {
     pub swap_buffers_with_damage_ext: bool,
     pub swap_buffers_with_damage_khr: bool,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_session {
-    pub impl_0: *const session_impl,
+    pub impl_0: *const crate::src::backend::session::direct::session_impl,
     pub session_signal: wl_signal,
     pub active: bool,
     pub vtnr: libc::c_uint,
@@ -331,8 +331,8 @@ pub struct wlr_session {
     pub display_destroy: wl_listener,
     pub events: C2RustUnnamed_0,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub destroy: wl_signal,
 }
@@ -340,8 +340,8 @@ pub struct C2RustUnnamed_0 {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_backend_impl {
     pub start: Option<unsafe extern "C" fn(_: *mut wlr_backend) -> bool>,
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_backend) -> ()>,
@@ -353,14 +353,14 @@ pub struct wlr_backend_impl {
                                                                 *mut wlr_backend)
                                            -> clockid_t>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_backend {
     pub impl_0: *const wlr_backend_impl,
     pub events: C2RustUnnamed_1,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub destroy: wl_signal,
     pub new_input: wl_signal,
@@ -370,14 +370,14 @@ pub struct C2RustUnnamed_1 {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_renderer {
-    pub impl_0: *const wlr_renderer_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_renderer_impl,
     pub events: C2RustUnnamed_2,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_2 {
     pub destroy: wl_signal,
 }
@@ -402,10 +402,10 @@ pub const WL_OUTPUT_TRANSFORM_270: wl_output_transform = 3;
 pub const WL_OUTPUT_TRANSFORM_180: wl_output_transform = 2;
 pub const WL_OUTPUT_TRANSFORM_90: wl_output_transform = 1;
 pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture {
-    pub impl_0: *const wlr_texture_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_texture_impl,
 }
 /*
  * This is a stable interface of wlroots. Future changes will be limited to:
@@ -428,8 +428,8 @@ pub const WLR_DEBUG: wlr_log_importance = 3;
 pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _IO_FILE {
     pub _flags: libc::c_int,
     pub _IO_read_ptr: *mut libc::c_char,
@@ -493,8 +493,8 @@ pub type DWORD = __uint32;
 pub type ULONG_PTR = uint64_t;
 pub type FLOAT = libc::c_float;
 pub type HANDLE = *mut libc::c_void;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _SYSTEMTIME {
     pub wYear: WORD,
     pub wMonth: WORD,
@@ -511,8 +511,8 @@ pub type SYSTEMTIME = _SYSTEMTIME;
  * Linux NPTL thread synchronization primitives are implemented using
  * the futex system calls ... we can't beat futex with a spin loop.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _RTL_CRITICAL_SECTION {
     pub DebugInfo: PVOID,
     pub LockCount: LONG,
@@ -547,8 +547,8 @@ pub type wLog = _wLog;
 /* *
  * Virtual Channel Protocol (pchannel.h)
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct tagCHANNEL_DEF {
     pub name: [libc::c_char; 8],
     pub options: ULONG,
@@ -573,8 +573,8 @@ pub type CHANNEL_DEF = tagCHANNEL_DEF;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _PALETTE_ENTRY {
     pub red: BYTE,
     pub green: BYTE,
@@ -599,8 +599,8 @@ pub type PALETTE_ENTRY = _PALETTE_ENTRY;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _TIME_ZONE_INFORMATION {
     pub Bias: LONG,
     pub StandardName: [WCHAR; 32],
@@ -616,8 +616,8 @@ pub type LPTIME_ZONE_INFORMATION = *mut _TIME_ZONE_INFORMATION;
 /* Compression Flags */
 /* Desktop Rotation Flags */
 /* ARC_CS_PRIVATE_PACKET */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct ARC_CS_PRIVATE_PACKET {
     pub cbLen: UINT32,
     pub version: UINT32,
@@ -625,8 +625,8 @@ pub struct ARC_CS_PRIVATE_PACKET {
     pub securityVerifier: [BYTE; 16],
 }
 /* ARC_SC_PRIVATE_PACKET */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct ARC_SC_PRIVATE_PACKET {
     pub cbLen: UINT32,
     pub version: UINT32,
@@ -634,37 +634,37 @@ pub struct ARC_SC_PRIVATE_PACKET {
     pub arcRandomBits: [BYTE; 16],
 }
 /* Certificates */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_CertBlob {
     pub length: UINT32,
     pub data: *mut BYTE,
 }
 pub type rdpCertBlob = rdp_CertBlob;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_X509CertChain {
     pub count: UINT32,
     pub array: *mut rdpCertBlob,
 }
 pub type rdpX509CertChain = rdp_X509CertChain;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_CertInfo {
     pub Modulus: *mut BYTE,
     pub ModulusLength: DWORD,
     pub exponent: [BYTE; 4],
 }
 pub type rdpCertInfo = rdp_CertInfo;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_certificate {
     pub cert_info: rdpCertInfo,
     pub x509_cert_chain: *mut rdpX509CertChain,
 }
 pub type rdpCertificate = rdp_certificate;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_rsa_key {
     pub Modulus: *mut BYTE,
     pub ModulusLength: DWORD,
@@ -674,39 +674,39 @@ pub struct rdp_rsa_key {
 }
 pub type rdpRsaKey = rdp_rsa_key;
 /* Channels */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _ADDIN_ARGV {
     pub argc: libc::c_int,
     pub argv: *mut *mut libc::c_char,
 }
 pub type ADDIN_ARGV = _ADDIN_ARGV;
 /* Extensions */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_ext_set {
     pub name: [libc::c_char; 256],
     pub data: *mut libc::c_void,
     /* plugin data */
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _BITMAP_CACHE_V2_CELL_INFO {
     pub numEntries: UINT32,
     pub persistent: BOOL,
 }
 pub type BITMAP_CACHE_V2_CELL_INFO = _BITMAP_CACHE_V2_CELL_INFO;
 /* Glyph Cache */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _GLYPH_CACHE_DEFINITION {
     pub cacheEntries: UINT16,
     pub cacheMaximumCellSize: UINT16,
 }
 pub type GLYPH_CACHE_DEFINITION = _GLYPH_CACHE_DEFINITION;
 /* Monitors */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MONITOR_DEF {
     pub left: INT32,
     pub top: INT32,
@@ -715,8 +715,8 @@ pub struct _MONITOR_DEF {
     pub flags: UINT32,
 }
 pub type MONITOR_DEF = _MONITOR_DEF;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MONITOR_ATTRIBUTES {
     pub physicalWidth: UINT32,
     pub physicalHeight: UINT32,
@@ -725,8 +725,8 @@ pub struct _MONITOR_ATTRIBUTES {
     pub deviceScaleFactor: UINT32,
 }
 pub type MONITOR_ATTRIBUTES = _MONITOR_ATTRIBUTES;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_monitor {
     pub x: INT32,
     pub y: INT32,
@@ -738,8 +738,8 @@ pub struct rdp_monitor {
 }
 pub type rdpMonitor = rdp_monitor;
 /* Device Redirection */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _RDPDR_DEVICE {
     pub Id: UINT32,
     pub Type: UINT32,
@@ -754,8 +754,8 @@ pub type RDPDR_DEVICE = _RDPDR_DEVICE;
 /* *
  * FreeRDP Settings Data Structure
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_settings {
     pub instance: *mut libc::c_void,
     pub padding001: [UINT64; 15],
@@ -1196,8 +1196,8 @@ pub struct rdp_settings {
     pub Floatbar: BOOL,
 }
 pub type rdpSettings = rdp_settings;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _RECTANGLE_16 {
     pub left: UINT16,
     pub top: UINT16,
@@ -1226,8 +1226,8 @@ pub type RECTANGLE_16 = _RECTANGLE_16;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _wStreamPool {
     pub aSize: libc::c_int,
     pub aCapacity: libc::c_int,
@@ -1240,8 +1240,8 @@ pub struct _wStreamPool {
     pub defaultSize: size_t,
 }
 pub type wStream = _wStream;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _wStream {
     pub buffer: *mut BYTE,
     pub pointer: *mut BYTE,
@@ -1287,8 +1287,8 @@ pub type OBJECT_EQUALS_FN
     =
     Option<unsafe extern "C" fn(_: *const libc::c_void,
                                 _: *const libc::c_void) -> BOOL>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _wObject {
     pub fnObjectNew: OBJECT_NEW_FN,
     pub fnObjectInit: OBJECT_INIT_FN,
@@ -1298,8 +1298,8 @@ pub struct _wObject {
 }
 pub type wObject = _wObject;
 /* Message Queue */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _wMessage {
     pub id: UINT32,
     pub context: *mut libc::c_void,
@@ -1312,8 +1312,8 @@ pub type MESSAGE_FREE_FN
     =
     Option<unsafe extern "C" fn(_: *mut wMessage) -> ()>;
 pub type wMessage = _wMessage;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _wMessageQueue {
     pub head: libc::c_int,
     pub tail: libc::c_int,
@@ -1326,8 +1326,8 @@ pub struct _wMessageQueue {
 }
 pub type wMessageQueue = _wMessageQueue;
 /* Publisher/Subscriber Pattern */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _wEventArgs {
     pub Size: DWORD,
     pub Sender: *const libc::c_char,
@@ -1337,8 +1337,8 @@ pub type pEventHandler
     =
     Option<unsafe extern "C" fn(_: *mut libc::c_void, _: *mut wEventArgs)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _wEventType {
     pub EventName: *const libc::c_char,
     pub EventArgs: wEventArgs,
@@ -1346,8 +1346,8 @@ pub struct _wEventType {
     pub EventHandlers: [pEventHandler; 32],
 }
 pub type wEventType = _wEventType;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _wPubSub {
     pub lock: CRITICAL_SECTION,
     pub synchronized: BOOL,
@@ -1357,8 +1357,8 @@ pub struct _wPubSub {
 }
 pub type wPubSub = _wPubSub;
 pub type NSC_CONTEXT_PRIV = _NSC_CONTEXT_PRIV;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _NSC_CONTEXT {
     pub OrgByteCount: [UINT32; 4],
     pub format: UINT32,
@@ -1399,8 +1399,8 @@ pub type NSC_CONTEXT = _NSC_CONTEXT;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _RFX_RECT {
     pub x: UINT16,
     pub y: UINT16,
@@ -1408,8 +1408,8 @@ pub struct _RFX_RECT {
     pub height: UINT16,
 }
 pub type RFX_RECT = _RFX_RECT;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _RFX_CONTEXT {
     pub state: RFX_STATE,
     pub encoder: BOOL,
@@ -1469,8 +1469,8 @@ pub type rdpGdi = rdp_gdi;
 pub type rdpRail = rdp_rail;
 pub type rdpCache = rdp_cache;
 pub type rdpChannels = rdp_channels;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_graphics {
     pub context: *mut rdpContext,
     pub Bitmap_Prototype: *mut rdpBitmap,
@@ -1531,8 +1531,8 @@ pub struct rdp_graphics {
     /* (offset 18) */
 }
 pub type rdpGlyph = rdp_glyph;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_glyph {
     pub size: size_t,
     pub New: pGlyph_New,
@@ -1555,8 +1555,8 @@ pub type pGlyph_SetBounds
     Option<unsafe extern "C" fn(_: *mut rdpContext, _: INT32, _: INT32,
                                 _: INT32, _: INT32) -> BOOL>;
 pub type rdpContext = rdp_context;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_context {
     pub instance: *mut freerdp,
     pub peer: *mut freerdp_peer,
@@ -1608,8 +1608,8 @@ pub struct rdp_context {
  * limitations under the License.
  */
 pub type rdpAutoDetect = rdp_autodetect;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_autodetect {
     pub context: *mut rdpContext,
     pub rttMeasureStartTime: UINT32,
@@ -1653,8 +1653,8 @@ pub type pRTTMeasureRequest
     =
     Option<unsafe extern "C" fn(_: *mut rdpContext, _: UINT16) -> BOOL>;
 pub type rdpCodecs = rdp_codecs;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_codecs {
     pub context: *mut rdpContext,
     pub rfx: *mut RFX_CONTEXT,
@@ -1684,8 +1684,8 @@ pub struct rdp_codecs {
  * limitations under the License.
  */
 pub type BITMAP_INTERLEAVED_CONTEXT = _BITMAP_INTERLEAVED_CONTEXT;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _BITMAP_INTERLEAVED_CONTEXT {
     pub Compressor: BOOL,
     pub TempSize: UINT32,
@@ -1713,8 +1713,8 @@ pub struct _BITMAP_INTERLEAVED_CONTEXT {
  * limitations under the License.
  */
 pub type BITMAP_PLANAR_CONTEXT = _BITMAP_PLANAR_CONTEXT;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _BITMAP_PLANAR_CONTEXT {
     pub maxWidth: UINT32,
     pub maxHeight: UINT32,
@@ -1790,8 +1790,8 @@ pub type CLEAR_CONTEXT = _CLEAR_CONTEXT;
  * limitations under the License.
  */
 pub type H264_CONTEXT = _H264_CONTEXT;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _H264_CONTEXT {
     pub Compressor: BOOL,
     pub width: UINT32,
@@ -1813,8 +1813,8 @@ pub struct _H264_CONTEXT {
     pub log: *mut wLog,
 }
 pub type H264_CONTEXT_SUBSYSTEM = _H264_CONTEXT_SUBSYSTEM;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _H264_CONTEXT_SUBSYSTEM {
     pub name: *const libc::c_char,
     pub Init: pfnH264SubsystemInit,
@@ -1842,8 +1842,8 @@ pub type _H264_RATECONTROL_MODE = libc::c_uint;
 pub const H264_RATECONTROL_CQP: _H264_RATECONTROL_MODE = 1;
 pub const H264_RATECONTROL_VBR: _H264_RATECONTROL_MODE = 0;
 pub type rdpMetrics = rdp_metrics;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_metrics {
     pub context: *mut rdpContext,
     pub TotalCompressedBytes: UINT64,
@@ -1869,8 +1869,8 @@ pub struct rdp_metrics {
  * limitations under the License.
  */
 pub type rdpUpdate = rdp_update;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_update {
     pub context: *mut rdpContext,
     pub paddingA: [UINT32; 15],
@@ -1917,8 +1917,8 @@ pub struct rdp_update {
     pub previousBounds: rdpBounds,
 }
 pub type rdpBounds = rdp_bounds;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_bounds {
     pub left: INT32,
     pub top: INT32,
@@ -1956,8 +1956,8 @@ pub type rdpUpdateProxy = rdp_update_proxy;
 /* number of octets of packet saved in file */
 /* actual length of packet */
 pub type rdpPcap = rdp_pcap;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_pcap {
     pub fp: *mut FILE,
     pub name: *mut libc::c_char,
@@ -1970,8 +1970,8 @@ pub struct rdp_pcap {
     pub record: *mut pcap_record,
 }
 pub type pcap_record = _pcap_record;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _pcap_record {
     pub header: pcap_record_header,
     pub data: *mut libc::c_void,
@@ -1979,8 +1979,8 @@ pub struct _pcap_record {
     pub next: *mut pcap_record,
 }
 pub type pcap_record_header = _pcap_record_header;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _pcap_record_header {
     pub ts_sec: UINT32,
     pub ts_usec: UINT32,
@@ -1988,8 +1988,8 @@ pub struct _pcap_record_header {
     pub orig_len: UINT32,
 }
 pub type pcap_header = _pcap_header;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _pcap_header {
     pub magic_number: UINT32,
     pub version_major: UINT16,
@@ -2012,8 +2012,8 @@ pub type pSurfaceFrameBits
                                 _: *const SURFACE_BITS_COMMAND, _: BOOL,
                                 _: BOOL, _: UINT32) -> BOOL>;
 pub type SURFACE_BITS_COMMAND = _SURFACE_BITS_COMMAND;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _SURFACE_BITS_COMMAND {
     pub cmdType: UINT32,
     pub destLeft: UINT32,
@@ -2024,8 +2024,8 @@ pub struct _SURFACE_BITS_COMMAND {
     pub skipCompression: BOOL,
 }
 pub type TS_BITMAP_DATA_EX = _TS_BITMAP_DATA_EX;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _TS_BITMAP_DATA_EX {
     pub bpp: BYTE,
     pub flags: BYTE,
@@ -2037,8 +2037,8 @@ pub struct _TS_BITMAP_DATA_EX {
     pub bitmapData: *mut BYTE,
 }
 pub type TS_COMPRESSED_BITMAP_HEADER_EX = _TS_COMPRESSED_BITMAP_HEADER_EX;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _TS_COMPRESSED_BITMAP_HEADER_EX {
     pub highUniqueId: UINT32,
     pub lowUniqueId: UINT32,
@@ -2050,8 +2050,8 @@ pub type pSurfaceFrameMarker
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const SURFACE_FRAME_MARKER) -> BOOL>;
 pub type SURFACE_FRAME_MARKER = _SURFACE_FRAME_MARKER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _SURFACE_FRAME_MARKER {
     pub frameAction: UINT32,
     pub frameId: UINT32,
@@ -2116,8 +2116,8 @@ pub type pRefreshRect
 /* 26 */
 /* internal */
 pub type rdpWindowUpdate = rdp_window_update;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_window_update {
     pub context: *mut rdpContext,
     pub paddingA: [UINT32; 15],
@@ -2140,16 +2140,16 @@ pub struct rdp_window_update {
     pub monitored_desktop: MONITORED_DESKTOP_ORDER,
 }
 pub type MONITORED_DESKTOP_ORDER = _MONITORED_DESKTOP_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MONITORED_DESKTOP_ORDER {
     pub activeWindowId: UINT32,
     pub numWindowIds: UINT32,
     pub windowIds: *mut UINT32,
 }
 pub type NOTIFY_ICON_STATE_ORDER = _NOTIFY_ICON_STATE_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _NOTIFY_ICON_STATE_ORDER {
     pub version: UINT32,
     pub toolTip: RAIL_UNICODE_STRING,
@@ -2159,15 +2159,15 @@ pub struct _NOTIFY_ICON_STATE_ORDER {
     pub cachedIcon: CACHED_ICON_INFO,
 }
 pub type CACHED_ICON_INFO = _CACHED_ICON_INFO;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CACHED_ICON_INFO {
     pub cacheEntry: UINT32,
     pub cacheId: UINT32,
 }
 pub type ICON_INFO = _ICON_INFO;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _ICON_INFO {
     pub cacheEntry: UINT32,
     pub cacheId: UINT32,
@@ -2182,8 +2182,8 @@ pub struct _ICON_INFO {
     pub bitsColor: *mut BYTE,
 }
 pub type NOTIFY_ICON_INFOTIP = _NOTIFY_ICON_INFOTIP;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _NOTIFY_ICON_INFOTIP {
     pub timeout: UINT32,
     pub flags: UINT32,
@@ -2225,27 +2225,27 @@ pub struct _NOTIFY_ICON_INFOTIP {
 /* Extended Handshake Flags */
 /* Language Profile Information Flags */
 pub type RAIL_UNICODE_STRING = _RAIL_UNICODE_STRING;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _RAIL_UNICODE_STRING {
     pub length: UINT16,
     pub string: *mut BYTE,
 }
 pub type WINDOW_CACHED_ICON_ORDER = _WINDOW_CACHED_ICON_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _WINDOW_CACHED_ICON_ORDER {
     pub cachedIcon: CACHED_ICON_INFO,
 }
 pub type WINDOW_ICON_ORDER = _WINDOW_ICON_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _WINDOW_ICON_ORDER {
     pub iconInfo: *mut ICON_INFO,
 }
 pub type WINDOW_STATE_ORDER = _WINDOW_STATE_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _WINDOW_STATE_ORDER {
     pub ownerWindowId: UINT32,
     pub style: UINT32,
@@ -2272,8 +2272,8 @@ pub struct _WINDOW_STATE_ORDER {
     pub visibilityRects: *mut RECTANGLE_16,
 }
 pub type WINDOW_ORDER_INFO = _WINDOW_ORDER_INFO;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _WINDOW_ORDER_INFO {
     pub windowId: UINT32,
     pub fieldFlags: UINT32,
@@ -2354,8 +2354,8 @@ pub type pWindowCreate
 /* 28 */
 /* internal */
 pub type rdpAltSecUpdate = rdp_altsec_update;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_altsec_update {
     pub context: *mut rdpContext,
     pub paddingA: [UINT32; 15],
@@ -2386,8 +2386,8 @@ pub struct rdp_altsec_update {
     pub draw_gdiplus_end: DRAW_GDIPLUS_END_ORDER,
 }
 pub type DRAW_GDIPLUS_END_ORDER = _DRAW_GDIPLUS_END_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DRAW_GDIPLUS_END_ORDER {
     pub cbSize: UINT32,
     pub cbTotalSize: UINT32,
@@ -2395,15 +2395,15 @@ pub struct _DRAW_GDIPLUS_END_ORDER {
     pub emfRecords: *mut BYTE,
 }
 pub type DRAW_GDIPLUS_NEXT_ORDER = _DRAW_GDIPLUS_NEXT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DRAW_GDIPLUS_NEXT_ORDER {
     pub cbSize: UINT32,
     pub emfRecords: *mut BYTE,
 }
 pub type DRAW_GDIPLUS_FIRST_ORDER = _DRAW_GDIPLUS_FIRST_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DRAW_GDIPLUS_FIRST_ORDER {
     pub cbSize: UINT32,
     pub cbTotalSize: UINT32,
@@ -2411,8 +2411,8 @@ pub struct _DRAW_GDIPLUS_FIRST_ORDER {
     pub emfRecords: *mut BYTE,
 }
 pub type DRAW_GDIPLUS_CACHE_END_ORDER = _DRAW_GDIPLUS_CACHE_END_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DRAW_GDIPLUS_CACHE_END_ORDER {
     pub flags: UINT32,
     pub cacheType: UINT32,
@@ -2422,8 +2422,8 @@ pub struct _DRAW_GDIPLUS_CACHE_END_ORDER {
     pub emfRecords: *mut BYTE,
 }
 pub type DRAW_GDIPLUS_CACHE_NEXT_ORDER = _DRAW_GDIPLUS_CACHE_NEXT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DRAW_GDIPLUS_CACHE_NEXT_ORDER {
     pub flags: UINT32,
     pub cacheType: UINT32,
@@ -2432,8 +2432,8 @@ pub struct _DRAW_GDIPLUS_CACHE_NEXT_ORDER {
     pub emfRecords: *mut BYTE,
 }
 pub type DRAW_GDIPLUS_CACHE_FIRST_ORDER = _DRAW_GDIPLUS_CACHE_FIRST_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DRAW_GDIPLUS_CACHE_FIRST_ORDER {
     pub flags: UINT32,
     pub cacheType: UINT32,
@@ -2443,8 +2443,8 @@ pub struct _DRAW_GDIPLUS_CACHE_FIRST_ORDER {
     pub emfRecords: *mut BYTE,
 }
 pub type STREAM_BITMAP_NEXT_ORDER = _STREAM_BITMAP_NEXT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _STREAM_BITMAP_NEXT_ORDER {
     pub bitmapFlags: UINT32,
     pub bitmapType: UINT32,
@@ -2452,8 +2452,8 @@ pub struct _STREAM_BITMAP_NEXT_ORDER {
     pub bitmapBlock: *mut BYTE,
 }
 pub type STREAM_BITMAP_FIRST_ORDER = _STREAM_BITMAP_FIRST_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _STREAM_BITMAP_FIRST_ORDER {
     pub bitmapFlags: UINT32,
     pub bitmapBpp: UINT32,
@@ -2465,14 +2465,14 @@ pub struct _STREAM_BITMAP_FIRST_ORDER {
     pub bitmapBlock: *mut BYTE,
 }
 pub type FRAME_MARKER_ORDER = _FRAME_MARKER_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _FRAME_MARKER_ORDER {
     pub action: UINT32,
 }
 pub type CREATE_NINE_GRID_BITMAP_ORDER = _CREATE_NINE_GRID_BITMAP_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CREATE_NINE_GRID_BITMAP_ORDER {
     pub bitmapBpp: UINT32,
     pub bitmapId: UINT32,
@@ -2481,8 +2481,8 @@ pub struct _CREATE_NINE_GRID_BITMAP_ORDER {
     pub nineGridInfo: NINE_GRID_BITMAP_INFO,
 }
 pub type NINE_GRID_BITMAP_INFO = _NINE_GRID_BITMAP_INFO;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _NINE_GRID_BITMAP_INFO {
     pub flFlags: UINT32,
     pub ulLeftWidth: UINT32,
@@ -2492,14 +2492,14 @@ pub struct _NINE_GRID_BITMAP_INFO {
     pub crTransparent: UINT32,
 }
 pub type SWITCH_SURFACE_ORDER = _SWITCH_SURFACE_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _SWITCH_SURFACE_ORDER {
     pub bitmapId: UINT32,
 }
 pub type CREATE_OFFSCREEN_BITMAP_ORDER = _CREATE_OFFSCREEN_BITMAP_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CREATE_OFFSCREEN_BITMAP_ORDER {
     pub id: UINT32,
     pub cx: UINT32,
@@ -2507,8 +2507,8 @@ pub struct _CREATE_OFFSCREEN_BITMAP_ORDER {
     pub deleteList: OFFSCREEN_DELETE_LIST,
 }
 pub type OFFSCREEN_DELETE_LIST = _OFFSCREEN_DELETE_LIST;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _OFFSCREEN_DELETE_LIST {
     pub sIndices: UINT32,
     pub cIndices: UINT32,
@@ -2597,8 +2597,8 @@ pub type pCreateOffscreenBitmap
 /* 23 */
 /* internal */
 pub type rdpSecondaryUpdate = rdp_secondary_update;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_secondary_update {
     pub context: *mut rdpContext,
     pub paddingA: [UINT32; 15],
@@ -2617,8 +2617,8 @@ pub type pCacheBrush
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const CACHE_BRUSH_ORDER) -> BOOL>;
 pub type CACHE_BRUSH_ORDER = _CACHE_BRUSH_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CACHE_BRUSH_ORDER {
     pub index: UINT32,
     pub bpp: UINT32,
@@ -2633,8 +2633,8 @@ pub type pCacheGlyphV2
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const CACHE_GLYPH_V2_ORDER) -> BOOL>;
 pub type CACHE_GLYPH_V2_ORDER = _CACHE_GLYPH_V2_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CACHE_GLYPH_V2_ORDER {
     pub cacheId: UINT32,
     pub flags: UINT32,
@@ -2643,8 +2643,8 @@ pub struct _CACHE_GLYPH_V2_ORDER {
     pub unicodeCharacters: *mut WCHAR,
 }
 pub type GLYPH_DATA_V2 = _GLYPH_DATA_V2;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _GLYPH_DATA_V2 {
     pub cacheIndex: UINT32,
     pub x: INT32,
@@ -2659,8 +2659,8 @@ pub type pCacheGlyph
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const CACHE_GLYPH_ORDER) -> BOOL>;
 pub type CACHE_GLYPH_ORDER = _CACHE_GLYPH_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CACHE_GLYPH_ORDER {
     pub cacheId: UINT32,
     pub cGlyphs: UINT32,
@@ -2668,8 +2668,8 @@ pub struct _CACHE_GLYPH_ORDER {
     pub unicodeCharacters: *mut WCHAR,
 }
 pub type GLYPH_DATA = _GLYPH_DATA;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _GLYPH_DATA {
     pub cacheIndex: UINT32,
     pub x: INT16,
@@ -2684,8 +2684,8 @@ pub type pCacheColorTable
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const CACHE_COLOR_TABLE_ORDER) -> BOOL>;
 pub type CACHE_COLOR_TABLE_ORDER = _CACHE_COLOR_TABLE_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CACHE_COLOR_TABLE_ORDER {
     pub cacheIndex: UINT32,
     pub numberColors: UINT32,
@@ -2696,8 +2696,8 @@ pub type pCacheBitmapV3
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *mut CACHE_BITMAP_V3_ORDER) -> BOOL>;
 pub type CACHE_BITMAP_V3_ORDER = _CACHE_BITMAP_V3_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CACHE_BITMAP_V3_ORDER {
     pub cacheId: UINT32,
     pub bpp: UINT32,
@@ -2708,8 +2708,8 @@ pub struct _CACHE_BITMAP_V3_ORDER {
     pub bitmapData: BITMAP_DATA_EX,
 }
 pub type BITMAP_DATA_EX = _BITMAP_DATA_EX;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _BITMAP_DATA_EX {
     pub bpp: UINT32,
     pub codecID: UINT32,
@@ -2723,8 +2723,8 @@ pub type pCacheBitmapV2
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *mut CACHE_BITMAP_V2_ORDER) -> BOOL>;
 pub type CACHE_BITMAP_V2_ORDER = _CACHE_BITMAP_V2_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CACHE_BITMAP_V2_ORDER {
     pub cacheId: UINT32,
     pub flags: UINT32,
@@ -2747,8 +2747,8 @@ pub type pCacheBitmap
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const CACHE_BITMAP_ORDER) -> BOOL>;
 pub type CACHE_BITMAP_ORDER = _CACHE_BITMAP_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _CACHE_BITMAP_ORDER {
     pub cacheId: UINT32,
     pub bitmapBpp: UINT32,
@@ -2779,8 +2779,8 @@ pub type rdpPrimaryUpdate = rdp_primary_update;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_primary_update {
     pub context: *mut rdpContext,
     pub paddingA: [UINT32; 15],
@@ -2832,8 +2832,8 @@ pub struct rdp_primary_update {
     pub ellipse_cb: ELLIPSE_CB_ORDER,
 }
 pub type ELLIPSE_CB_ORDER = _ELLIPSE_CB_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _ELLIPSE_CB_ORDER {
     pub leftRect: INT32,
     pub topRect: INT32,
@@ -2846,8 +2846,8 @@ pub struct _ELLIPSE_CB_ORDER {
     pub brush: rdpBrush,
 }
 pub type rdpBrush = rdp_brush;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_brush {
     pub x: UINT32,
     pub y: UINT32,
@@ -2859,8 +2859,8 @@ pub struct rdp_brush {
     pub p8x8: [BYTE; 8],
 }
 pub type ELLIPSE_SC_ORDER = _ELLIPSE_SC_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _ELLIPSE_SC_ORDER {
     pub leftRect: INT32,
     pub topRect: INT32,
@@ -2871,8 +2871,8 @@ pub struct _ELLIPSE_SC_ORDER {
     pub color: UINT32,
 }
 pub type POLYGON_CB_ORDER = _POLYGON_CB_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _POLYGON_CB_ORDER {
     pub xStart: INT32,
     pub yStart: INT32,
@@ -2887,15 +2887,15 @@ pub struct _POLYGON_CB_ORDER {
     pub points: *mut DELTA_POINT,
 }
 pub type DELTA_POINT = _DELTA_POINT;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DELTA_POINT {
     pub x: INT32,
     pub y: INT32,
 }
 pub type POLYGON_SC_ORDER = _POLYGON_SC_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _POLYGON_SC_ORDER {
     pub xStart: INT32,
     pub yStart: INT32,
@@ -2907,8 +2907,8 @@ pub struct _POLYGON_SC_ORDER {
     pub points: *mut DELTA_POINT,
 }
 pub type FAST_GLYPH_ORDER = _FAST_GLYPH_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _FAST_GLYPH_ORDER {
     pub cacheId: UINT32,
     pub flAccel: UINT32,
@@ -2930,8 +2930,8 @@ pub struct _FAST_GLYPH_ORDER {
     pub glyphData: GLYPH_DATA_V2,
 }
 pub type FAST_INDEX_ORDER = _FAST_INDEX_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _FAST_INDEX_ORDER {
     pub cacheId: UINT32,
     pub flAccel: UINT32,
@@ -2953,8 +2953,8 @@ pub struct _FAST_INDEX_ORDER {
     pub data: [BYTE; 256],
 }
 pub type GLYPH_INDEX_ORDER = _GLYPH_INDEX_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _GLYPH_INDEX_ORDER {
     pub cacheId: UINT32,
     pub flAccel: UINT32,
@@ -2977,8 +2977,8 @@ pub struct _GLYPH_INDEX_ORDER {
     pub data: [BYTE; 256],
 }
 pub type SAVE_BITMAP_ORDER = _SAVE_BITMAP_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _SAVE_BITMAP_ORDER {
     pub savedBitmapPosition: UINT32,
     pub nLeftRect: INT32,
@@ -2988,8 +2988,8 @@ pub struct _SAVE_BITMAP_ORDER {
     pub operation: UINT32,
 }
 pub type MEM3BLT_ORDER = _MEM3BLT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MEM3BLT_ORDER {
     pub cacheId: UINT32,
     pub colorIndex: UINT32,
@@ -3007,8 +3007,8 @@ pub struct _MEM3BLT_ORDER {
     pub bitmap: *mut rdpBitmap,
 }
 pub type rdpBitmap = rdp_bitmap;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_bitmap {
     pub size: size_t,
     pub New: pBitmap_New,
@@ -3054,8 +3054,8 @@ pub type pBitmap_New
     Option<unsafe extern "C" fn(_: *mut rdpContext, _: *mut rdpBitmap)
                -> BOOL>;
 pub type MEMBLT_ORDER = _MEMBLT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MEMBLT_ORDER {
     pub cacheId: UINT32,
     pub colorIndex: UINT32,
@@ -3070,8 +3070,8 @@ pub struct _MEMBLT_ORDER {
     pub bitmap: *mut rdpBitmap,
 }
 pub type POLYLINE_ORDER = _POLYLINE_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _POLYLINE_ORDER {
     pub xStart: INT32,
     pub yStart: INT32,
@@ -3082,8 +3082,8 @@ pub struct _POLYLINE_ORDER {
     pub points: *mut DELTA_POINT,
 }
 pub type LINE_TO_ORDER = _LINE_TO_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _LINE_TO_ORDER {
     pub backMode: UINT32,
     pub nXStart: INT32,
@@ -3097,8 +3097,8 @@ pub struct _LINE_TO_ORDER {
     pub penColor: UINT32,
 }
 pub type MULTI_DRAW_NINE_GRID_ORDER = _MULTI_DRAW_NINE_GRID_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MULTI_DRAW_NINE_GRID_ORDER {
     pub srcLeft: INT32,
     pub srcTop: INT32,
@@ -3110,8 +3110,8 @@ pub struct _MULTI_DRAW_NINE_GRID_ORDER {
     pub rectangles: [DELTA_RECT; 45],
 }
 pub type DELTA_RECT = _DELTA_RECT;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DELTA_RECT {
     pub left: INT32,
     pub top: INT32,
@@ -3119,8 +3119,8 @@ pub struct _DELTA_RECT {
     pub height: INT32,
 }
 pub type MULTI_OPAQUE_RECT_ORDER = _MULTI_OPAQUE_RECT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MULTI_OPAQUE_RECT_ORDER {
     pub nLeftRect: INT32,
     pub nTopRect: INT32,
@@ -3132,8 +3132,8 @@ pub struct _MULTI_OPAQUE_RECT_ORDER {
     pub rectangles: [DELTA_RECT; 45],
 }
 pub type MULTI_SCRBLT_ORDER = _MULTI_SCRBLT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MULTI_SCRBLT_ORDER {
     pub nLeftRect: INT32,
     pub nTopRect: INT32,
@@ -3147,8 +3147,8 @@ pub struct _MULTI_SCRBLT_ORDER {
     pub rectangles: [DELTA_RECT; 45],
 }
 pub type MULTI_PATBLT_ORDER = _MULTI_PATBLT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MULTI_PATBLT_ORDER {
     pub nLeftRect: INT32,
     pub nTopRect: INT32,
@@ -3163,8 +3163,8 @@ pub struct _MULTI_PATBLT_ORDER {
     pub rectangles: [DELTA_RECT; 45],
 }
 pub type MULTI_DSTBLT_ORDER = _MULTI_DSTBLT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _MULTI_DSTBLT_ORDER {
     pub nLeftRect: INT32,
     pub nTopRect: INT32,
@@ -3176,8 +3176,8 @@ pub struct _MULTI_DSTBLT_ORDER {
     pub rectangles: [DELTA_RECT; 45],
 }
 pub type DRAW_NINE_GRID_ORDER = _DRAW_NINE_GRID_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DRAW_NINE_GRID_ORDER {
     pub srcLeft: INT32,
     pub srcTop: INT32,
@@ -3186,8 +3186,8 @@ pub struct _DRAW_NINE_GRID_ORDER {
     pub bitmapId: UINT32,
 }
 pub type OPAQUE_RECT_ORDER = _OPAQUE_RECT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _OPAQUE_RECT_ORDER {
     pub nLeftRect: INT32,
     pub nTopRect: INT32,
@@ -3196,8 +3196,8 @@ pub struct _OPAQUE_RECT_ORDER {
     pub color: UINT32,
 }
 pub type SCRBLT_ORDER = _SCRBLT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _SCRBLT_ORDER {
     pub nLeftRect: INT32,
     pub nTopRect: INT32,
@@ -3208,8 +3208,8 @@ pub struct _SCRBLT_ORDER {
     pub nYSrc: INT32,
 }
 pub type PATBLT_ORDER = _PATBLT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _PATBLT_ORDER {
     pub nLeftRect: INT32,
     pub nTopRect: INT32,
@@ -3221,8 +3221,8 @@ pub struct _PATBLT_ORDER {
     pub brush: rdpBrush,
 }
 pub type DSTBLT_ORDER = _DSTBLT_ORDER;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _DSTBLT_ORDER {
     pub nLeftRect: INT32,
     pub nTopRect: INT32,
@@ -3231,8 +3231,8 @@ pub struct _DSTBLT_ORDER {
     pub bRop: UINT32,
 }
 pub type ORDER_INFO = _ORDER_INFO;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _ORDER_INFO {
     pub controlFlags: UINT32,
     pub orderType: UINT32,
@@ -3357,8 +3357,8 @@ pub type pDstBlt
 /* 20 */
 /* 21 */
 pub type rdpPointerUpdate = rdp_pointer_update;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_pointer_update {
     pub context: *mut rdpContext,
     pub paddingA: [UINT32; 15],
@@ -3374,8 +3374,8 @@ pub type pPointerCached
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const POINTER_CACHED_UPDATE) -> BOOL>;
 pub type POINTER_CACHED_UPDATE = _POINTER_CACHED_UPDATE;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _POINTER_CACHED_UPDATE {
     pub cacheIndex: UINT32,
 }
@@ -3384,15 +3384,15 @@ pub type pPointerNew
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const POINTER_NEW_UPDATE) -> BOOL>;
 pub type POINTER_NEW_UPDATE = _POINTER_NEW_UPDATE;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _POINTER_NEW_UPDATE {
     pub xorBpp: UINT32,
     pub colorPtrAttr: POINTER_COLOR_UPDATE,
 }
 pub type POINTER_COLOR_UPDATE = _POINTER_COLOR_UPDATE;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _POINTER_COLOR_UPDATE {
     pub cacheIndex: UINT32,
     pub xPos: UINT32,
@@ -3413,8 +3413,8 @@ pub type pPointerSystem
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const POINTER_SYSTEM_UPDATE) -> BOOL>;
 pub type POINTER_SYSTEM_UPDATE = _POINTER_SYSTEM_UPDATE;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _POINTER_SYSTEM_UPDATE {
     pub type_0: UINT32,
 }
@@ -3423,8 +3423,8 @@ pub type pPointerPosition
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const POINTER_POSITION_UPDATE) -> BOOL>;
 pub type POINTER_POSITION_UPDATE = _POINTER_POSITION_UPDATE;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _POINTER_POSITION_UPDATE {
     pub xPos: UINT32,
     pub yPos: UINT32,
@@ -3441,8 +3441,8 @@ pub type pPlaySound
     Option<unsafe extern "C" fn(_: *mut rdpContext,
                                 _: *const PLAY_SOUND_UPDATE) -> BOOL>;
 pub type PLAY_SOUND_UPDATE = _PLAY_SOUND_UPDATE;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _PLAY_SOUND_UPDATE {
     pub duration: UINT32,
     pub frequency: UINT32,
@@ -3452,8 +3452,8 @@ pub type pPalette
     Option<unsafe extern "C" fn(_: *mut rdpContext, _: *const PALETTE_UPDATE)
                -> BOOL>;
 pub type PALETTE_UPDATE = _PALETTE_UPDATE;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _PALETTE_UPDATE {
     pub number: UINT32,
     pub entries: [PALETTE_ENTRY; 256],
@@ -3463,8 +3463,8 @@ pub type pBitmapUpdate
     Option<unsafe extern "C" fn(_: *mut rdpContext, _: *const BITMAP_UPDATE)
                -> BOOL>;
 pub type BITMAP_UPDATE = _BITMAP_UPDATE;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _BITMAP_UPDATE {
     pub count: UINT32,
     pub number: UINT32,
@@ -3472,8 +3472,8 @@ pub struct _BITMAP_UPDATE {
     pub skipCompression: BOOL,
 }
 pub type BITMAP_DATA = _BITMAP_DATA;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _BITMAP_DATA {
     pub destLeft: UINT32,
     pub destTop: UINT32,
@@ -3524,8 +3524,8 @@ pub type pBeginPaint
  * limitations under the License.
  */
 pub type rdpInput = rdp_input;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_input {
     pub context: *mut rdpContext,
     pub param1: *mut libc::c_void,
@@ -3570,8 +3570,8 @@ pub type pSynchronizeEvent
     Option<unsafe extern "C" fn(_: *mut rdpInput, _: UINT32) -> BOOL>;
 pub type rdpGraphics = rdp_graphics;
 pub type freerdp_peer = rdp_freerdp_peer;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_freerdp_peer {
     pub context: *mut rdpContext,
     pub sockfd: libc::c_int,
@@ -3672,16 +3672,16 @@ pub type psPeerComputeNtlmHash
 /* Buffer Types */
 /* Security Buffer Flags */
 pub type SecBuffer = _SecBuffer;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _SecBuffer {
     pub cbBuffer: ULONG,
     pub BufferType: ULONG,
     pub pvBuffer: *mut libc::c_void,
 }
 pub type SEC_WINNT_AUTH_IDENTITY = _SEC_WINNT_AUTH_IDENTITY;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _SEC_WINNT_AUTH_IDENTITY {
     pub User: *mut UINT16,
     pub UserLength: UINT32,
@@ -3791,8 +3791,8 @@ pub type psPeerContextNew
     Option<unsafe extern "C" fn(_: *mut freerdp_peer, _: *mut rdpContext)
                -> BOOL>;
 pub type freerdp = rdp_freerdp;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_freerdp {
     pub context: *mut rdpContext,
     pub pClientEntryPoints: *mut RDP_CLIENT_ENTRY_POINTS,
@@ -3872,8 +3872,8 @@ pub type pContextNew
     Option<unsafe extern "C" fn(_: *mut freerdp, _: *mut rdpContext) -> BOOL>;
 pub type RDP_CLIENT_ENTRY_POINTS = RDP_CLIENT_ENTRY_POINTS_V1;
 pub type RDP_CLIENT_ENTRY_POINTS_V1 = rdp_client_entry_points_v1;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_client_entry_points_v1 {
     pub Size: DWORD,
     pub Version: DWORD,
@@ -3923,8 +3923,8 @@ pub type pGlyph_New
     Option<unsafe extern "C" fn(_: *mut rdpContext, _: *const rdpGlyph)
                -> BOOL>;
 pub type rdpPointer = rdp_pointer;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_pointer {
     pub size: size_t,
     pub New: pPointer_New,
@@ -3985,8 +3985,8 @@ pub type pPointer_New
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct rdp_freerdp_listener {
     pub info: *mut libc::c_void,
     pub listener: *mut libc::c_void,
@@ -4045,19 +4045,19 @@ pub const WLR_INPUT_DEVICE_KEYBOARD: wlr_input_device_type = 0;
 pub type xkb_mod_index_t = uint32_t;
 pub type xkb_mod_mask_t = uint32_t;
 pub type xkb_led_index_t = uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_modifiers {
     pub depressed: xkb_mod_mask_t,
     pub latched: xkb_mod_mask_t,
     pub locked: xkb_mod_mask_t,
     pub group: xkb_mod_mask_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard {
-    pub impl_0: *const wlr_keyboard_impl,
-    pub group: *mut wlr_keyboard_group,
+    pub impl_0: *const crate::src::backend::headless::input_device::wlr_keyboard_impl,
+    pub group: *mut crate::src::types::wlr_keyboard_group::wlr_keyboard_group,
     pub keymap_string: *mut libc::c_char,
     pub keymap_size: size_t,
     pub keymap: *mut xkb_keymap,
@@ -4071,8 +4071,8 @@ pub struct wlr_keyboard {
     pub events: C2RustUnnamed_3,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_3 {
     pub key: wl_signal,
     pub modifiers: wl_signal,
@@ -4080,21 +4080,21 @@ pub struct C2RustUnnamed_3 {
     pub repeat_info: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_4 {
     pub rate: int32_t,
     pub delay: int32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_pointer {
-    pub impl_0: *const wlr_pointer_impl,
+    pub impl_0: *const crate::src::backend::headless::input_device::wlr_pointer_impl,
     pub events: C2RustUnnamed_5,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_5 {
     pub motion: wl_signal,
     pub motion_absolute: wl_signal,
@@ -4108,10 +4108,10 @@ pub struct C2RustUnnamed_5 {
     pub pinch_update: wl_signal,
     pub pinch_end: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_input_device {
-    pub impl_0: *const wlr_input_device_impl,
+    pub impl_0: *const crate::src::backend::headless::backend::wlr_input_device_impl,
     pub type_0: wlr_input_device_type,
     pub vendor: libc::c_uint,
     pub product: libc::c_uint,
@@ -4124,13 +4124,13 @@ pub struct wlr_input_device {
     pub data: *mut libc::c_void,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_6 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union C2RustUnnamed_7 {
     pub _device: *mut libc::c_void,
     pub keyboard: *mut wlr_keyboard,
@@ -4149,10 +4149,10 @@ pub union C2RustUnnamed_7 {
  * with more than one mode. I don't own any such hardware so I cannot test it
  * and it is too complicated to make a meaningful implementation of blindly.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet_pad {
-    pub impl_0: *mut wlr_tablet_pad_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_tablet_pad_impl,
     pub events: C2RustUnnamed_8,
     pub button_count: size_t,
     pub ring_count: size_t,
@@ -4165,15 +4165,15 @@ pub struct wlr_tablet_pad {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_list {
     pub capacity: size_t,
     pub length: size_t,
     pub items: *mut *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_8 {
     pub button: wl_signal,
     pub ring: wl_signal,
@@ -4197,17 +4197,17 @@ pub struct C2RustUnnamed_8 {
 /* * A mouse tool with a lens */
 /* * A rotary device with positional and rotation data */
 // Capabilities
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_tablet {
-    pub impl_0: *mut wlr_tablet_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_tablet_impl,
     pub events: C2RustUnnamed_9,
     pub name: *mut libc::c_char,
     pub paths: wlr_list,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_9 {
     pub axis: wl_signal,
     pub proximity: wl_signal,
@@ -4218,15 +4218,15 @@ pub struct C2RustUnnamed_9 {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_touch {
-    pub impl_0: *const wlr_touch_impl,
+    pub impl_0: *const crate::src::backend::headless::input_device::wlr_touch_impl,
     pub events: C2RustUnnamed_10,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_10 {
     pub down: wl_signal,
     pub up: wl_signal,
@@ -4237,15 +4237,15 @@ pub struct C2RustUnnamed_10 {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_switch {
-    pub impl_0: *mut wlr_switch_impl,
+    pub impl_0: *mut crate::src::backend::headless::input_device::wlr_switch_impl,
     pub events: C2RustUnnamed_11,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_11 {
     pub toggle: wl_signal,
 }
@@ -4256,8 +4256,8 @@ pub struct C2RustUnnamed_11 {
 /* *
  * A client buffer.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
     pub texture: *mut wlr_texture,
@@ -4269,8 +4269,8 @@ pub struct wlr_buffer {
  * This an unstable interface of wlroots. No guarantees are made regarding the
  * future consistency of this API.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_mode {
     pub width: int32_t,
     pub height: int32_t,
@@ -4278,8 +4278,8 @@ pub struct wlr_output_mode {
     pub preferred: bool,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_cursor {
     pub output: *mut wlr_output,
     pub x: libc::c_double,
@@ -4292,13 +4292,13 @@ pub struct wlr_output_cursor {
     pub hotspot_y: int32_t,
     pub link: wl_list,
     pub texture: *mut wlr_texture,
-    pub surface: *mut wlr_surface,
+    pub surface: *mut crate::src::types::data_device::wlr_data_device::wlr_surface,
     pub surface_commit: wl_listener,
     pub surface_destroy: wl_listener,
     pub events: C2RustUnnamed_12,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_12 {
     pub destroy: wl_signal,
 }
@@ -4313,10 +4313,10 @@ pub struct C2RustUnnamed_12 {
  * render and call `wlr_output_commit`. No rendering should happen outside a
  * `frame` event handler or before `wlr_output_attach_render`.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output {
-    pub impl_0: *const wlr_output_impl,
+    pub impl_0: *const crate::src::backend::drm::backend::wlr_output_impl,
     pub backend: *mut wlr_backend,
     pub display: *mut wl_display,
     pub global: *mut wl_global,
@@ -4352,8 +4352,8 @@ pub struct wlr_output {
     pub display_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_13 {
     pub frame: wl_signal,
     pub needs_frame: wl_signal,
@@ -4369,8 +4369,8 @@ pub struct C2RustUnnamed_13 {
 /* *
  * Holds the double-buffered output state.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_state {
     pub committed: uint32_t,
     pub damage: pixman_region32_t,
@@ -4381,8 +4381,8 @@ pub struct wlr_output_state {
 pub type wlr_output_state_buffer_type = libc::c_uint;
 pub const WLR_OUTPUT_STATE_BUFFER_SCANOUT: wlr_output_state_buffer_type = 1;
 pub const WLR_OUTPUT_STATE_BUFFER_RENDER: wlr_output_state_buffer_type = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_rdp_backend {
     pub backend: wlr_backend,
     pub egl: wlr_egl,
@@ -4397,8 +4397,8 @@ pub struct wlr_rdp_backend {
     pub listener_events: [*mut wl_event_source; 64],
     pub clients: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_rdp_peer_context {
     pub _p: rdpContext,
     pub backend: *mut wlr_rdp_backend,
@@ -4414,13 +4414,13 @@ pub struct wlr_rdp_peer_context {
     pub keyboard: *mut wlr_rdp_input_device,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_rdp_input_device {
     pub wlr_input_device: wlr_input_device,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_rdp_output {
     pub wlr_output: wlr_output,
     pub backend: *mut wlr_rdp_backend,
@@ -4534,7 +4534,8 @@ unsafe extern "C" fn backend_get_renderer(mut wlr_backend: *mut wlr_backend)
     return (*backend).renderer;
 }
 static mut backend_impl: wlr_backend_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_backend_impl{start:
@@ -4556,7 +4557,7 @@ static mut backend_impl: wlr_backend_impl =
                                  get_presentation_clock: None,};
             init
         }
-    };
+};
 unsafe extern "C" fn handle_display_destroy(mut listener: *mut wl_listener,
                                             mut data: *mut libc::c_void) {
     let mut backend: *mut wlr_rdp_backend =

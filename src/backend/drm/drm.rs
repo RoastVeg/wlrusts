@@ -335,8 +335,8 @@ extern "C" {
 }
 pub type __u32 = libc::c_uint;
 pub type __u64 = libc::c_ulonglong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct drm_format_modifier_blob {
     pub version: __u32,
     pub flags: __u32,
@@ -345,8 +345,8 @@ pub struct drm_format_modifier_blob {
     pub count_modifiers: __u32,
     pub modifiers_offset: __u32,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct drm_format_modifier {
     pub formats: __u64,
     pub offset: __u32,
@@ -378,21 +378,21 @@ pub const GBM_BO_USE_SCANOUT: gbm_bo_flags = 1;
 pub type ssize_t = __ssize_t;
 pub type clockid_t = __clockid_t;
 pub type time_t = __time_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct timespec {
     pub tv_sec: __time_t,
     pub tv_nsec: __syscall_slong_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -401,15 +401,15 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
@@ -417,8 +417,8 @@ pub struct wl_list {
 pub type wl_event_loop_timer_func_t
     =
     Option<unsafe extern "C" fn(_: *mut libc::c_void) -> libc::c_int>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -427,8 +427,8 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -437,16 +437,16 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
 pub type wl_resource_destroy_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_resource) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_mode {
     pub width: int32_t,
     pub height: int32_t,
@@ -454,23 +454,23 @@ pub struct wlr_output_mode {
     pub preferred: bool,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format_set {
     pub len: size_t,
     pub cap: size_t,
     pub formats: *mut *mut wlr_drm_format,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_format {
     pub format: uint32_t,
     pub len: size_t,
     pub cap: size_t,
     pub modifiers: [uint64_t; 0],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_connector {
     pub output: wlr_output,
     pub state: wlr_drm_connector_state,
@@ -494,8 +494,8 @@ pub struct wlr_drm_connector {
     pub current_buffer: *mut wlr_buffer,
     pub current_bo: *mut gbm_bo,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
     pub texture: *mut wlr_texture,
@@ -503,13 +503,13 @@ pub struct wlr_buffer {
     pub n_refs: size_t,
     pub resource_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_texture {
-    pub impl_0: *const wlr_texture_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_texture_impl,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_dmabuf_attributes {
     pub width: int32_t,
     pub height: int32_t,
@@ -522,8 +522,8 @@ pub struct wlr_dmabuf_attributes {
     pub fd: [libc::c_int; 4],
 }
 pub type drmModeCrtc = _drmModeCrtc;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModeCrtc {
     pub crtc_id: uint32_t,
     pub buffer_id: uint32_t,
@@ -539,8 +539,8 @@ pub struct _drmModeCrtc {
  * Add mode to the list of available modes
  */
 pub type drmModeModeInfo = _drmModeModeInfo;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModeModeInfo {
     pub clock: uint32_t,
     pub hdisplay: uint16_t,
@@ -563,14 +563,14 @@ pub struct _drmModeModeInfo {
  * See https://01.org/linuxgraphics/gfx-docs/drm/gpu/drm-kms.html#kms-properties
  * for more details.
  */
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union wlr_drm_connector_props {
     pub c2rust_unnamed: C2RustUnnamed,
     pub props: [uint32_t; 4],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub edid: uint32_t,
     pub dpms: uint32_t,
@@ -580,8 +580,8 @@ pub struct C2RustUnnamed {
 }
 // ARGB8888 or XRGB8888
 // Only used by cursor
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_crtc {
     pub id: uint32_t,
     pub mode_id: uint32_t,
@@ -604,14 +604,14 @@ pub struct wlr_drm_crtc {
     // Set the gamma lut on crtc
     // Get the gamma lut size of a crtc
 }
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union wlr_drm_crtc_props {
     pub c2rust_unnamed: C2RustUnnamed_0,
     pub props: [uint32_t; 6],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub rotation: uint32_t,
     pub scaling_mode: uint32_t,
@@ -620,8 +620,8 @@ pub struct C2RustUnnamed_0 {
     pub gamma_lut: uint32_t,
     pub gamma_lut_size: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_plane {
     pub type_0: uint32_t,
     pub id: uint32_t,
@@ -635,14 +635,14 @@ pub struct wlr_drm_plane {
     pub cursor_hotspot_y: int32_t,
     pub props: wlr_drm_plane_props,
 }
-#[derive ( Copy, Clone )]
-#[repr ( C )]
+
+#[repr ( C )]#[derive(Copy, Clone)]
 pub union wlr_drm_plane_props {
     pub c2rust_unnamed: C2RustUnnamed_1,
     pub props: [uint32_t; 13],
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub type_0: uint32_t,
     pub rotation: uint32_t,
@@ -658,8 +658,8 @@ pub struct C2RustUnnamed_1 {
     pub fb_id: uint32_t,
     pub crtc_id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_surface {
     pub renderer: *mut wlr_drm_renderer,
     pub width: uint32_t,
@@ -670,8 +670,8 @@ pub struct wlr_drm_surface {
     pub back: *mut gbm_bo,
 }
 pub type EGLSurface = *mut libc::c_void;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_renderer {
     pub fd: libc::c_int,
     pub gbm: *mut gbm_device,
@@ -693,19 +693,19 @@ pub struct wlr_drm_renderer {
 	 * The buffer's texture, if any. A buffer will not have a texture if the
 	 * client destroys the buffer before it has been released.
 	 */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_renderer {
-    pub impl_0: *const wlr_renderer_impl,
+    pub impl_0: *const crate::src::render::gles2::renderer::wlr_renderer_impl,
     pub events: C2RustUnnamed_2,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_2 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_egl {
     pub platform: EGLenum,
     pub display: EGLDisplay,
@@ -716,8 +716,8 @@ pub struct wlr_egl {
     pub wl_display: *mut wl_display,
     pub dmabuf_formats: wlr_drm_format_set,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_3 {
     pub bind_wayland_display_wl: bool,
     pub buffer_age_ext: bool,
@@ -751,8 +751,8 @@ pub const WLR_DRM_CONN_DISCONNECTED: wlr_drm_connector_state = 0;
  * render and call `wlr_output_commit`. No rendering should happen outside a
  * `frame` event handler or before `wlr_output_attach_render`.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output {
     pub impl_0: *const wlr_output_impl,
     pub backend: *mut wlr_backend,
@@ -790,8 +790,8 @@ pub struct wlr_output {
     pub display_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_cursor {
     pub output: *mut wlr_output,
     pub x: libc::c_double,
@@ -804,18 +804,18 @@ pub struct wlr_output_cursor {
     pub hotspot_y: int32_t,
     pub link: wl_list,
     pub texture: *mut wlr_texture,
-    pub surface: *mut wlr_surface,
+    pub surface: *mut crate::src::types::data_device::wlr_data_device::wlr_surface,
     pub surface_commit: wl_listener,
     pub surface_destroy: wl_listener,
     pub events: C2RustUnnamed_4,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_4 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_5 {
     pub frame: wl_signal,
     pub needs_frame: wl_signal,
@@ -828,8 +828,8 @@ pub struct C2RustUnnamed_5 {
     pub transform: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_state {
     pub committed: uint32_t,
     pub damage: pixman_region32_t,
@@ -840,22 +840,22 @@ pub type wlr_output_state_buffer_type = libc::c_uint;
 pub const WLR_OUTPUT_STATE_BUFFER_SCANOUT: wlr_output_state_buffer_type = 1;
 pub const WLR_OUTPUT_STATE_BUFFER_RENDER: wlr_output_state_buffer_type = 0;
 pub type pixman_region32_t = pixman_region32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
 }
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
@@ -878,21 +878,21 @@ pub const WL_OUTPUT_SUBPIXEL_HORIZONTAL_BGR: wl_output_subpixel = 3;
 pub const WL_OUTPUT_SUBPIXEL_HORIZONTAL_RGB: wl_output_subpixel = 2;
 pub const WL_OUTPUT_SUBPIXEL_NONE: wl_output_subpixel = 1;
 pub const WL_OUTPUT_SUBPIXEL_UNKNOWN: wl_output_subpixel = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_backend {
     pub impl_0: *const wlr_backend_impl,
     pub events: C2RustUnnamed_6,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_6 {
     pub destroy: wl_signal,
     pub new_input: wl_signal,
     pub new_output: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_backend_impl {
     pub start: Option<unsafe extern "C" fn(_: *mut wlr_backend) -> bool>,
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_backend) -> ()>,
@@ -904,10 +904,10 @@ pub struct wlr_backend_impl {
                                                                 *mut wlr_backend)
                                            -> clockid_t>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_session {
-    pub impl_0: *const session_impl,
+    pub impl_0: *const crate::src::backend::session::direct::session_impl,
     pub session_signal: wl_signal,
     pub active: bool,
     pub vtnr: libc::c_uint,
@@ -919,8 +919,8 @@ pub struct wlr_session {
     pub display_destroy: wl_listener,
     pub events: C2RustUnnamed_7,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_7 {
     pub destroy: wl_signal,
 }
@@ -938,8 +938,8 @@ pub struct C2RustUnnamed_7 {
 // output-buffer-local coordinates
 // only valid if WLR_OUTPUT_STATE_BUFFER
 // if WLR_OUTPUT_STATE_BUFFER_SCANOUT
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_impl {
     pub enable: Option<unsafe extern "C" fn(_: *mut wlr_output, _: bool)
                            -> bool>,
@@ -979,8 +979,8 @@ pub struct wlr_output_impl {
                                                    _: *mut wlr_buffer)
                                   -> bool>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_box {
     pub x: libc::c_int,
     pub y: libc::c_int,
@@ -1002,8 +1002,8 @@ pub const WLR_OUTPUT_PRESENT_HW_CLOCK: wlr_output_present_flag = 2;
 // The presentation was synchronized to the "vertical retrace" by the
 	// display hardware such that tearing does not happen.
 pub const WLR_OUTPUT_PRESENT_VSYNC: wlr_output_present_flag = 1;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_output_event_present {
     pub output: *mut wlr_output,
     pub commit_seq: uint32_t,
@@ -1034,8 +1034,8 @@ pub const WLR_DEBUG: wlr_log_importance = 3;
 pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmEventContext {
     pub version: libc::c_int,
     pub vblank_handler: Option<unsafe extern "C" fn(_: libc::c_int,
@@ -1064,8 +1064,8 @@ pub struct _drmEventContext {
 }
 pub type drmEventContext = _drmEventContext;
 pub type drmEventContextPtr = *mut _drmEventContext;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModeRes {
     pub count_fbs: libc::c_int,
     pub fbs: *mut uint32_t,
@@ -1083,8 +1083,8 @@ pub struct _drmModeRes {
 pub type drmModeRes = _drmModeRes;
 pub type drmModeResPtr = *mut _drmModeRes;
 pub type drmModeModeInfoPtr = *mut _drmModeModeInfo;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModePropertyBlob {
     pub id: uint32_t,
     pub length: uint32_t,
@@ -1093,8 +1093,8 @@ pub struct _drmModePropertyBlob {
 pub type drmModePropertyBlobRes = _drmModePropertyBlob;
 pub type drmModePropertyBlobPtr = *mut _drmModePropertyBlob;
 pub type drmModeCrtcPtr = *mut _drmModeCrtc;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModeEncoder {
     pub encoder_id: uint32_t,
     pub encoder_type: uint32_t,
@@ -1115,8 +1115,8 @@ pub const DRM_MODE_SUBPIXEL_VERTICAL_RGB: drmModeSubPixel = 4;
 pub const DRM_MODE_SUBPIXEL_HORIZONTAL_BGR: drmModeSubPixel = 3;
 pub const DRM_MODE_SUBPIXEL_HORIZONTAL_RGB: drmModeSubPixel = 2;
 pub const DRM_MODE_SUBPIXEL_UNKNOWN: drmModeSubPixel = 1;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModeConnector {
     pub connector_id: uint32_t,
     pub encoder_id: uint32_t,
@@ -1136,8 +1136,8 @@ pub struct _drmModeConnector {
 }
 pub type drmModeConnector = _drmModeConnector;
 pub type drmModeConnectorPtr = *mut _drmModeConnector;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModePlane {
     pub count_formats: uint32_t,
     pub formats: *mut uint32_t,
@@ -1153,8 +1153,8 @@ pub struct _drmModePlane {
 }
 pub type drmModePlane = _drmModePlane;
 pub type drmModePlanePtr = *mut _drmModePlane;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _drmModePlaneRes {
     pub count_planes: uint32_t,
     pub planes: *mut uint32_t,
@@ -1168,8 +1168,8 @@ pub type drmModeAtomicReqPtr = *mut _drmModeAtomicReq;
 	 * We don't support overlay planes yet, but we keep track of them to
 	 * give to DRM lease clients.
 	 */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_backend {
     pub backend: wlr_backend,
     pub parent: *mut wlr_drm_backend,
@@ -1189,8 +1189,8 @@ pub struct wlr_drm_backend {
     pub renderer: wlr_drm_renderer,
     pub session: *mut wlr_session,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_interface {
     pub conn_enable: Option<unsafe extern "C" fn(_: *mut wlr_drm_backend,
                                                  _: *mut wlr_drm_connector,
@@ -1221,8 +1221,8 @@ pub struct wlr_drm_interface {
                                                          _: *mut wlr_drm_crtc)
                                         -> size_t>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_drm_mode {
     pub wlr_mode: wlr_output_mode,
     pub drm_mode: drmModeModeInfo,
@@ -2555,7 +2555,8 @@ unsafe extern "C" fn drm_connector_destroy(mut output: *mut wlr_output) {
     free(conn as *mut libc::c_void);
 }
 static mut output_impl: wlr_output_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_output_impl{enable:
@@ -2656,7 +2657,7 @@ static mut output_impl: wlr_output_impl =
                                                  -> bool),};
             init
         }
-    };
+};
 #[no_mangle]
 pub unsafe extern "C" fn wlr_output_is_drm(mut output: *mut wlr_output)
  -> bool {

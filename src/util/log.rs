@@ -26,8 +26,8 @@ extern "C" {
     fn wl_log_set_handler_server(handler: wl_log_func_t);
 }
 pub type __builtin_va_list = [__va_list_tag; 1];
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct __va_list_tag {
     pub gp_offset: libc::c_uint,
     pub fp_offset: libc::c_uint,
@@ -39,8 +39,8 @@ pub type size_t = libc::c_ulong;
 pub type __off_t = libc::c_long;
 pub type __off64_t = libc::c_long;
 pub type __time_t = libc::c_long;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct _IO_FILE {
     pub _flags: libc::c_int,
     pub _IO_read_ptr: *mut libc::c_char,
@@ -75,8 +75,8 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 pub type time_t = __time_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct tm {
     pub tm_sec: libc::c_int,
     pub tm_min: libc::c_int,
@@ -90,8 +90,8 @@ pub struct tm {
     pub __tm_gmtoff: libc::c_long,
     pub __tm_zone: *const libc::c_char,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
@@ -100,8 +100,8 @@ pub type wl_log_func_t
     =
     Option<unsafe extern "C" fn(_: *const libc::c_char, _: ::std::ffi::VaList)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -187,12 +187,13 @@ unsafe extern "C" fn log_stderr(mut verbosity: wlr_log_importance,
     fprintf(stderr, b"\n\x00" as *const u8 as *const libc::c_char);
 }
 static mut log_callback: wlr_log_func_t =
-    unsafe {
+    {
+    
         Some(log_stderr as
                  unsafe extern "C" fn(_: wlr_log_importance,
                                       _: *const libc::c_char,
                                       _: ::std::ffi::VaList) -> ())
-    };
+};
 unsafe extern "C" fn log_wl(mut fmt: *const libc::c_char,
                             mut args: ::std::ffi::VaList) {
     static mut wlr_fmt: [libc::c_char; 1024] = [0; 1024];

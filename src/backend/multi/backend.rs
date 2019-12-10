@@ -77,7 +77,7 @@ extern "C" {
      -> clockid_t;
     #[no_mangle]
     fn wlr_backend_get_renderer(backend: *mut wlr_backend)
-     -> *mut wlr_renderer;
+     -> *mut crate::src::backend::drm::atomic::wlr_renderer;
     #[no_mangle]
     fn wlr_backend_destroy(backend: *mut wlr_backend);
     #[no_mangle]
@@ -90,14 +90,14 @@ extern "C" {
 }
 pub type __clockid_t = libc::c_int;
 pub type clockid_t = __clockid_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -106,15 +106,15 @@ pub type wl_notify_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_listener, _: *mut libc::c_void)
                -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_session {
-    pub impl_0: *const session_impl,
+    pub impl_0: *const crate::src::backend::session::direct::session_impl,
     pub session_signal: wl_signal,
     pub active: bool,
     pub vtnr: libc::c_uint,
@@ -126,32 +126,32 @@ pub struct wlr_session {
     pub display_destroy: wl_listener,
     pub events: C2RustUnnamed,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_backend_impl {
     pub start: Option<unsafe extern "C" fn(_: *mut wlr_backend) -> bool>,
     pub destroy: Option<unsafe extern "C" fn(_: *mut wlr_backend) -> ()>,
     pub get_renderer: Option<unsafe extern "C" fn(_: *mut wlr_backend)
-                                 -> *mut wlr_renderer>,
+                                 -> *mut crate::src::backend::drm::atomic::wlr_renderer>,
     pub get_session: Option<unsafe extern "C" fn(_: *mut wlr_backend)
                                 -> *mut wlr_session>,
     pub get_presentation_clock: Option<unsafe extern "C" fn(_:
                                                                 *mut wlr_backend)
                                            -> clockid_t>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_backend {
     pub impl_0: *const wlr_backend_impl,
     pub events: C2RustUnnamed_0,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub destroy: wl_signal,
     pub new_input: wl_signal,
@@ -178,8 +178,8 @@ pub const WLR_DEBUG: wlr_log_importance = 3;
 pub const WLR_INFO: wlr_log_importance = 2;
 pub const WLR_ERROR: wlr_log_importance = 1;
 pub const WLR_SILENT: wlr_log_importance = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_multi_backend {
     pub backend: wlr_backend,
     pub session: *mut wlr_session,
@@ -187,14 +187,14 @@ pub struct wlr_multi_backend {
     pub display_destroy: wl_listener,
     pub events: C2RustUnnamed_1,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub backend_add: wl_signal,
     pub backend_remove: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct subbackend_state {
     pub backend: *mut wlr_backend,
     pub container: *mut wlr_backend,
@@ -285,7 +285,7 @@ unsafe extern "C" fn multi_backend_destroy(mut wlr_backend:
     free(backend as *mut libc::c_void);
 }
 unsafe extern "C" fn multi_backend_get_renderer(mut backend: *mut wlr_backend)
- -> *mut wlr_renderer {
+ -> *mut crate::src::backend::drm::atomic::wlr_renderer {
     let mut multi: *mut wlr_multi_backend =
         multi_backend_from_backend(backend);
     let mut sub: *mut subbackend_state = 0 as *mut subbackend_state;
@@ -294,14 +294,14 @@ unsafe extern "C" fn multi_backend_get_renderer(mut backend: *mut wlr_backend)
             *mut subbackend_state;
     while &mut (*sub).link as *mut wl_list !=
               &mut (*multi).backends as *mut wl_list {
-        let mut rend: *mut wlr_renderer =
+        let mut rend: *mut crate::src::backend::drm::atomic::wlr_renderer =
             wlr_backend_get_renderer((*sub).backend);
         if !rend.is_null() { return rend }
         sub =
             ((*sub).link.next as *mut libc::c_char).offset(-88) as
                 *mut subbackend_state
     }
-    return 0 as *mut wlr_renderer;
+    return 0 as *mut crate::src::backend::drm::atomic::wlr_renderer;
 }
 unsafe extern "C" fn multi_backend_get_session(mut _backend: *mut wlr_backend)
  -> *mut wlr_session {
@@ -331,7 +331,8 @@ unsafe extern "C" fn multi_backend_get_presentation_clock(mut backend:
 }
 #[no_mangle]
 pub static mut backend_impl: wlr_backend_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_backend_impl{start:
@@ -348,7 +349,7 @@ pub static mut backend_impl: wlr_backend_impl =
                                      Some(multi_backend_get_renderer as
                                               unsafe extern "C" fn(_:
                                                                        *mut wlr_backend)
-                                                  -> *mut wlr_renderer),
+                                                  -> *mut crate::src::backend::drm::atomic::wlr_renderer),
                                  get_session:
                                      Some(multi_backend_get_session as
                                               unsafe extern "C" fn(_:
@@ -362,7 +363,7 @@ pub static mut backend_impl: wlr_backend_impl =
                                                   -> clockid_t),};
             init
         }
-    };
+};
 unsafe extern "C" fn handle_display_destroy(mut listener: *mut wl_listener,
                                             mut data: *mut libc::c_void) {
     let mut backend: *mut wlr_multi_backend =
@@ -449,9 +450,9 @@ pub unsafe extern "C" fn wlr_multi_backend_add(mut _multi: *mut wlr_backend,
         // already added
         return 1i32 != 0
     }
-    let mut multi_renderer: *mut wlr_renderer =
+    let mut multi_renderer: *mut crate::src::backend::drm::atomic::wlr_renderer =
         multi_backend_get_renderer(&mut (*multi).backend);
-    let mut backend_renderer: *mut wlr_renderer =
+    let mut backend_renderer: *mut crate::src::backend::drm::atomic::wlr_renderer =
         wlr_backend_get_renderer(backend);
     if !multi_renderer.is_null() && !backend_renderer.is_null() &&
            multi_renderer != backend_renderer {

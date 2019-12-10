@@ -199,15 +199,15 @@ pub type __syscall_slong_t = libc::c_long;
 pub type int32_t = __int32_t;
 pub type uint32_t = __uint32_t;
 pub type size_t = libc::c_ulong;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_object {
     pub interface: *const wl_interface,
     pub implementation: *const libc::c_void,
     pub id: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_interface {
     pub name: *const libc::c_char,
     pub version: libc::c_int,
@@ -216,28 +216,28 @@ pub struct wl_interface {
     pub event_count: libc::c_int,
     pub events: *const wl_message,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_message {
     pub name: *const libc::c_char,
     pub signature: *const libc::c_char,
     pub types: *mut *const wl_interface,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_array {
     pub size: size_t,
     pub alloc: size_t,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_listener {
     pub link: wl_list,
     pub notify: wl_notify_func_t,
@@ -250,8 +250,8 @@ pub type wl_global_bind_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_client, _: *mut libc::c_void,
                                 _: uint32_t, _: uint32_t) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_resource {
     pub object: wl_object,
     pub destroy: wl_resource_destroy_func_t,
@@ -260,16 +260,16 @@ pub struct wl_resource {
     pub client: *mut wl_client,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
 pub type wl_resource_destroy_func_t
     =
     Option<unsafe extern "C" fn(_: *mut wl_resource) -> ()>;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct timespec {
     pub tv_sec: __time_t,
     pub tv_nsec: __syscall_slong_t,
@@ -284,19 +284,19 @@ pub const WLR_BUTTON_RELEASED: wlr_button_state = 0;
 pub type xkb_mod_index_t = uint32_t;
 pub type xkb_mod_mask_t = uint32_t;
 pub type xkb_led_index_t = uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_modifiers {
     pub depressed: xkb_mod_mask_t,
     pub latched: xkb_mod_mask_t,
     pub locked: xkb_mod_mask_t,
     pub group: xkb_mod_mask_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard {
-    pub impl_0: *const wlr_keyboard_impl,
-    pub group: *mut wlr_keyboard_group,
+    pub impl_0: *const crate::src::backend::headless::input_device::wlr_keyboard_impl,
+    pub group: *mut crate::src::types::wlr_keyboard_group::wlr_keyboard_group,
     pub keymap_string: *mut libc::c_char,
     pub keymap_size: size_t,
     pub keymap: *mut xkb_keymap,
@@ -310,8 +310,8 @@ pub struct wlr_keyboard {
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub key: wl_signal,
     pub modifiers: wl_signal,
@@ -319,8 +319,8 @@ pub struct C2RustUnnamed {
     pub repeat_info: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_0 {
     pub rate: int32_t,
     pub delay: int32_t,
@@ -336,15 +336,15 @@ pub const WLR_AXIS_ORIENTATION_VERTICAL: wlr_axis_orientation = 0;
 /*
  * 32 bit regions
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32_data {
     pub size: libc::c_long,
     pub numRects: libc::c_long,
 }
 pub type pixman_region32_data_t = pixman_region32_data;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_box32 {
     pub x1: int32_t,
     pub y1: int32_t,
@@ -352,8 +352,8 @@ pub struct pixman_box32 {
     pub y2: int32_t,
 }
 pub type pixman_box32_t = pixman_box32;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct pixman_region32 {
     pub extents: pixman_box32_t,
     pub data: *mut pixman_region32_data_t,
@@ -375,20 +375,20 @@ pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
 /* *
  * A client buffer.
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_buffer {
     pub resource: *mut wl_resource,
-    pub texture: *mut wlr_texture,
+    pub texture: *mut crate::src::backend::drm::atomic::wlr_texture,
     pub released: bool,
     pub n_refs: size_t,
     pub resource_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface {
     pub resource: *mut wl_resource,
-    pub renderer: *mut wlr_renderer,
+    pub renderer: *mut crate::src::backend::drm::atomic::wlr_renderer,
     pub buffer: *mut wlr_buffer,
     pub sx: libc::c_int,
     pub sy: libc::c_int,
@@ -406,8 +406,8 @@ pub struct wlr_surface {
     pub renderer_destroy: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_1 {
     pub commit: wl_signal,
     pub new_subsurface: wl_signal,
@@ -422,15 +422,15 @@ pub struct C2RustUnnamed_1 {
 // clipped to bounds
 // wl_resource
 // in surface-local coordinates
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface_role {
     pub name: *const libc::c_char,
     pub commit: Option<unsafe extern "C" fn(_: *mut wlr_surface) -> ()>,
     pub precommit: Option<unsafe extern "C" fn(_: *mut wlr_surface) -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_surface_state {
     pub committed: uint32_t,
     pub buffer_resource: *mut wl_resource,
@@ -449,21 +449,21 @@ pub struct wlr_surface_state {
     pub buffer_height: libc::c_int,
     pub buffer_destroy: wl_listener,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_serial_range {
     pub min_incl: uint32_t,
     pub max_incl: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_serial_ringset {
     pub data: [wlr_serial_range; 128],
     pub end: libc::c_int,
     pub count: libc::c_int,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_client {
     pub client: *mut wl_client,
     pub seat: *mut wlr_seat,
@@ -476,13 +476,13 @@ pub struct wlr_seat_client {
     pub events: C2RustUnnamed_2,
     pub serials: wlr_serial_ringset,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_2 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat {
     pub global: *mut wl_global,
     pub display: *mut wl_display,
@@ -490,13 +490,13 @@ pub struct wlr_seat {
     pub name: *mut libc::c_char,
     pub capabilities: uint32_t,
     pub last_event: timespec,
-    pub selection_source: *mut wlr_data_source,
+    pub selection_source: *mut crate::src::types::data_device::wlr_data_device::wlr_data_source,
     pub selection_serial: uint32_t,
     pub selection_offers: wl_list,
     pub primary_selection_source: *mut wlr_primary_selection_source,
     pub primary_selection_serial: uint32_t,
-    pub drag: *mut wlr_drag,
-    pub drag_source: *mut wlr_data_source,
+    pub drag: *mut crate::src::types::data_device::wlr_data_device::wlr_drag,
+    pub drag_source: *mut crate::src::types::data_device::wlr_data_device::wlr_data_source,
     pub drag_serial: uint32_t,
     pub drag_offers: wl_list,
     pub pointer_state: wlr_seat_pointer_state,
@@ -509,8 +509,8 @@ pub struct wlr_seat {
     pub events: C2RustUnnamed_3,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_3 {
     pub pointer_grab_begin: wl_signal,
     pub pointer_grab_end: wl_signal,
@@ -527,8 +527,8 @@ pub struct C2RustUnnamed_3 {
     pub start_drag: wl_signal,
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_touch_state {
     pub seat: *mut wlr_seat,
     pub touch_points: wl_list,
@@ -537,15 +537,15 @@ pub struct wlr_seat_touch_state {
     pub grab: *mut wlr_seat_touch_grab,
     pub default_grab: *mut wlr_seat_touch_grab,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_touch_grab {
     pub interface: *const wlr_touch_grab_interface,
     pub seat: *mut wlr_seat,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_touch_grab_interface {
     pub down: Option<unsafe extern "C" fn(_: *mut wlr_seat_touch_grab,
                                           _: uint32_t,
@@ -563,8 +563,8 @@ pub struct wlr_touch_grab_interface {
     pub cancel: Option<unsafe extern "C" fn(_: *mut wlr_seat_touch_grab)
                            -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_touch_point {
     pub touch_id: int32_t,
     pub surface: *mut wlr_surface,
@@ -579,13 +579,13 @@ pub struct wlr_touch_point {
     pub events: C2RustUnnamed_4,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_4 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_keyboard_state {
     pub seat: *mut wlr_seat,
     pub keyboard: *mut wlr_keyboard,
@@ -599,20 +599,20 @@ pub struct wlr_seat_keyboard_state {
     pub default_grab: *mut wlr_seat_keyboard_grab,
     pub events: C2RustUnnamed_5,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_5 {
     pub focus_change: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_keyboard_grab {
     pub interface: *const wlr_keyboard_grab_interface,
     pub seat: *mut wlr_seat,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_keyboard_grab_interface {
     pub enter: Option<unsafe extern "C" fn(_: *mut wlr_seat_keyboard_grab,
                                            _: *mut wlr_surface,
@@ -628,8 +628,8 @@ pub struct wlr_keyboard_grab_interface {
     pub cancel: Option<unsafe extern "C" fn(_: *mut wlr_seat_keyboard_grab)
                            -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_pointer_state {
     pub seat: *mut wlr_seat,
     pub focused_client: *mut wlr_seat_client,
@@ -646,20 +646,20 @@ pub struct wlr_seat_pointer_state {
     pub surface_destroy: wl_listener,
     pub events: C2RustUnnamed_6,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_6 {
     pub focus_change: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_seat_pointer_grab {
     pub interface: *const wlr_pointer_grab_interface,
     pub seat: *mut wlr_seat,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_pointer_grab_interface {
     pub enter: Option<unsafe extern "C" fn(_: *mut wlr_seat_pointer_grab,
                                            _: *mut wlr_surface,
@@ -681,21 +681,21 @@ pub struct wlr_pointer_grab_interface {
     pub cancel: Option<unsafe extern "C" fn(_: *mut wlr_seat_pointer_grab)
                            -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_primary_selection_source {
     pub impl_0: *const wlr_primary_selection_source_impl,
     pub mime_types: wl_array,
     pub events: C2RustUnnamed_7,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_7 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_primary_selection_source_impl {
     pub send: Option<unsafe extern "C" fn(_:
                                               *mut wlr_primary_selection_source,
@@ -705,8 +705,8 @@ pub struct wlr_primary_selection_source_impl {
                                                  *mut wlr_primary_selection_source)
                             -> ()>,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_primary_selection_v1_device_manager {
     pub global: *mut wl_global,
     pub devices: wl_list,
@@ -714,13 +714,13 @@ pub struct wlr_primary_selection_v1_device_manager {
     pub events: C2RustUnnamed_8,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed_8 {
     pub destroy: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_primary_selection_v1_device {
     pub manager: *mut wlr_primary_selection_v1_device_manager,
     pub seat: *mut wlr_seat,
@@ -732,8 +732,8 @@ pub struct wlr_primary_selection_v1_device {
     pub seat_set_primary_selection: wl_listener,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct client_data_source {
     pub source: wlr_primary_selection_source,
     pub resource: *mut wl_resource,
@@ -743,8 +743,8 @@ pub struct client_data_source {
  * @ingroup iface_zwp_primary_selection_device_manager_v1
  * @struct zwp_primary_selection_device_manager_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwp_primary_selection_device_manager_v1_interface {
     pub create_source: Option<unsafe extern "C" fn(_: *mut wl_client,
                                                    _: *mut wl_resource,
@@ -769,8 +769,8 @@ pub struct zwp_primary_selection_device_manager_v1_interface {
  * @ingroup iface_zwp_primary_selection_device_v1
  * @struct zwp_primary_selection_device_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwp_primary_selection_device_v1_interface {
     pub set_selection: Option<unsafe extern "C" fn(_: *mut wl_client,
                                                    _: *mut wl_resource,
@@ -783,8 +783,8 @@ pub struct zwp_primary_selection_device_v1_interface {
  * @ingroup iface_zwp_primary_selection_source_v1
  * @struct zwp_primary_selection_source_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwp_primary_selection_source_v1_interface {
     pub offer: Option<unsafe extern "C" fn(_: *mut wl_client,
                                            _: *mut wl_resource,
@@ -817,8 +817,8 @@ pub const WLR_SILENT: wlr_log_importance = 0;
  * @ingroup iface_zwp_primary_selection_offer_v1
  * @struct zwp_primary_selection_offer_v1_interface
  */
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct zwp_primary_selection_offer_v1_interface {
     pub receive: Option<unsafe extern "C" fn(_: *mut wl_client,
                                              _: *mut wl_resource,
@@ -967,7 +967,8 @@ unsafe extern "C" fn offer_handle_destroy(mut client: *mut wl_client,
     wl_resource_destroy(resource);
 }
 static mut offer_impl: zwp_primary_selection_offer_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwp_primary_selection_offer_v1_interface{receive:
@@ -994,7 +995,7 @@ static mut offer_impl: zwp_primary_selection_offer_v1_interface =
                                                                               ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn offer_handle_resource_destroy(mut resource:
                                                        *mut wl_resource) {
     wl_list_remove(wl_resource_get_link(resource));
@@ -1074,7 +1075,8 @@ unsafe extern "C" fn client_source_destroy(mut wlr_source:
     free(source as *mut libc::c_void);
 }
 static mut client_source_impl: wlr_primary_selection_source_impl =
-    unsafe {
+    {
+    
         {
             let mut init =
                 wlr_primary_selection_source_impl{send:
@@ -1095,7 +1097,7 @@ static mut client_source_impl: wlr_primary_selection_source_impl =
                                                                    -> ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn client_data_source_from_resource(mut resource:
                                                           *mut wl_resource)
  -> *mut client_data_source {
@@ -1166,7 +1168,8 @@ unsafe extern "C" fn source_handle_destroy(mut client: *mut wl_client,
     wl_resource_destroy(resource);
 }
 static mut source_impl: zwp_primary_selection_source_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwp_primary_selection_source_v1_interface{offer:
@@ -1191,7 +1194,7 @@ static mut source_impl: zwp_primary_selection_source_v1_interface =
                                                                                ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn source_resource_handle_destroy(mut resource:
                                                         *mut wl_resource) {
     let mut source: *mut client_data_source =
@@ -1247,7 +1250,8 @@ unsafe extern "C" fn device_handle_destroy(mut client: *mut wl_client,
     wl_resource_destroy(resource);
 }
 static mut device_impl: zwp_primary_selection_device_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwp_primary_selection_device_v1_interface{set_selection:
@@ -1274,7 +1278,7 @@ static mut device_impl: zwp_primary_selection_device_v1_interface =
                                                                                ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn device_handle_resource_destroy(mut resource:
                                                         *mut wl_resource) {
     wl_list_remove(wl_resource_get_link(resource));
@@ -1537,7 +1541,8 @@ unsafe extern "C" fn device_manager_handle_destroy(mut client: *mut wl_client,
 }
 static mut device_manager_impl:
        zwp_primary_selection_device_manager_v1_interface =
-    unsafe {
+    {
+    
         {
             let mut init =
                 zwp_primary_selection_device_manager_v1_interface{create_source:
@@ -1575,7 +1580,7 @@ static mut device_manager_impl:
                                                                                        ()),};
             init
         }
-    };
+};
 unsafe extern "C" fn primary_selection_device_manager_bind(mut client:
                                                                *mut wl_client,
                                                            mut data:

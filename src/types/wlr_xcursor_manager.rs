@@ -34,28 +34,28 @@ pub type __uint32_t = libc::c_uint;
 pub type int32_t = __int32_t;
 pub type uint8_t = __uint8_t;
 pub type uint32_t = __uint32_t;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wl_signal {
     pub listener_list: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_cursor {
-    pub state: *mut wlr_cursor_state,
+    pub state: *mut crate::src::types::wlr_cursor::wlr_cursor_state,
     pub x: libc::c_double,
     pub y: libc::c_double,
     pub events: C2RustUnnamed,
     pub data: *mut libc::c_void,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct C2RustUnnamed {
     pub motion: wl_signal,
     pub motion_absolute: wl_signal,
@@ -77,8 +77,8 @@ pub struct C2RustUnnamed {
     pub tablet_tool_tip: wl_signal,
     pub tablet_tool_button: wl_signal,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xcursor_image {
     pub width: uint32_t,
     pub height: uint32_t,
@@ -87,31 +87,31 @@ pub struct wlr_xcursor_image {
     pub delay: uint32_t,
     pub buffer: *mut uint8_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xcursor {
     pub image_count: libc::c_uint,
     pub images: *mut *mut wlr_xcursor_image,
     pub name: *mut libc::c_char,
     pub total_delay: uint32_t,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xcursor_theme {
     pub cursor_count: libc::c_uint,
     pub cursors: *mut *mut wlr_xcursor,
     pub name: *mut libc::c_char,
     pub size: libc::c_int,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xcursor_manager_theme {
     pub scale: libc::c_float,
     pub theme: *mut wlr_xcursor_theme,
     pub link: wl_list,
 }
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_xcursor_manager {
     pub name: *mut libc::c_char,
     pub size: uint32_t,

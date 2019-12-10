@@ -60,8 +60,8 @@ pub const WL_SHM_FORMAT_RGB332: wl_shm_format = 943867730;
 pub const WL_SHM_FORMAT_C8: wl_shm_format = 538982467;
 pub const WL_SHM_FORMAT_XRGB8888: wl_shm_format = 1;
 pub const WL_SHM_FORMAT_ARGB8888: wl_shm_format = 0;
-#[derive ( Copy, Clone )]
-#[repr(C)]
+
+#[repr(C)]#[derive(Copy, Clone)]
 pub struct wlr_gles2_pixel_format {
     pub wl_format: wl_shm_format,
     pub gl_format: GLint,
