@@ -1,0 +1,26 @@
+"error: assigning to 'char *' from 'const char [1]' discards qualifiers"
+Affects:
+	- backend/rdp/keyboard.c
+	- include/xcursor/cursor_data.h
+	- xwayland/xwayland.c
+	- examples/layer-shell.c
+	- examples/screencopy.c
+	- examples/input-method.c
+	- examples/text-input.c
+Resolved by using const in structs, and switching either to char arrays or using strdup elsewhere
+
+"error: Failed to translate handle_tablet_tool_frame: Unimplemented builtin __builtin_isnan"
+Affects:
+	- backend/wayland/tablet_v2.c
+	- types/wlr_cursor.c
+Resolved by testing for self equality
+
+"error: Failed to translate wlr_output_layout_closest_point: Unimplemented builtin __builtin_isfinite"
+Affects:
+	- types/wlr_output_layout.c
+Resolved by testing for equality to INFINITY (guaranteed by C99 math.h)
+
+"warning: Missing child _ of node AstNode { tag: TagImplicitCastExpr, children: [Some(_)], loc: SrcSpan { fileid: 36, begin_line: 85, begin_column: 4, end_line: _, end_column: 22 }, type_id: Some(94013182336064), rvalue: RValue, macro_expansions: [], extras: [String("BitCast")] }"
+Affects:
+	- examples/foreign-toplevel.c
+Resolved by removing title and app_id from void print_toplevel
