@@ -1,0 +1,2 @@
+Multiple definitions for functions in wlr_seat and children
+Multiple definitions for functions in examples/
